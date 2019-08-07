@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: utf-8
+    cache: false
+    servlet:
+      content-type: text/html
+
+wx:
+  mp:
+    appId: wx756c8d0527341085
+    secret: 8c111924f1fcdf0f2a0e12fe72f01da3
+    # token:
+    # aesKey:
+    #config-storage: memory
