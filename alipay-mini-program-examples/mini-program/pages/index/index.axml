@@ -1,0 +1,47 @@
+<!-- 小程序收藏组件，更多高级用法请参考文档：https://docs.alipay.com/mini/component/component-favorite -->
+<favorite>收藏小程序，下次使用更方便</favorite>
+
+<view class="container">
+  <text class="title">Voucher</text>
+  <button
+    class="btn-action"
+    size="default"
+    type="ghost"
+    onTap="init"
+  >点击查看券列表</button>
+  <button
+    class="btn-action"
+    size="default"
+    type="ghost"
+    onTap="getVoucher"
+  >支付0.01元领取优惠券</button>
+  <view class="voucher-list">
+    <view 
+      class="voucher-detail" 
+      a:for="{{voucherList}}" 
+      a:for-item="item"
+      data-serial-number="{{item.serialNumber}}"
+      data-card-id="{{item.cardId}}"
+      onTap="openVoucherDetail"
+    >
+      <view class="voucher-title">
+        <view class="voucher-icon"></view>
+        <text>优惠券</text>
+      </view>
+      <button
+        class="btn-consume"
+        disabled="{{item.cardStatus === 'USED'}}"
+        size="default"
+        type="primary"
+        data-serial-number="{{item.serialNumber}}"
+        data-card-id="{{item.cardId}}"
+        catchTap="consumeVoucher"
+      >
+        {{item.cardStatus === 'OK' ? '立即使用' : '已销券'}}
+      </button>
+    </view>
+  </view>
+  <view class="desc">
+    <text class="desc-item">支付宝卡包（alipass），是支付宝公司推出的一款可以管理电子凭证的产品，该产品聚合来自各类生活服务的票据凭证，包括优惠券、折扣券、代金券、换购券、电影票、演出票、火车票、机票。</text>
+  </view>
+</view>
