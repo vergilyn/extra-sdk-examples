@@ -16,20 +16,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842"></a>
  * @author VergiLyn
  * @date 2019-08-02
  */
 @Controller
+@RequestMapping("/auth")
 @Slf4j
-public class IndexController {
+public class AuthController {
     @Autowired private WxMpService wxMpService;
 
-    @RequestMapping("/guide")
+    @RequestMapping("/base")
     public String guide() {
 
-        String url = wxMpService
-                .oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/index", WxConsts.OAuth2Scope.SNSAPI_USERINFO,
-                        "");
+        String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_BASE, "");
+
+        return "redirect:" + url;
+    }
+
+    @RequestMapping("/userinfo")
+    public String userinfo() {
+
+        String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_USERINFO, "");
 
         return "redirect:" + url;
     }
@@ -44,6 +52,8 @@ public class IndexController {
                 // access_token 获取 用户信息
                 WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(accessToken, null);
                 String user = JSON.toJSONString(wxMpUser);
+
+                model.addAttribute("user", user);
 
                 log.info("code: {}, access-token: {}, wx-mp-user: {}", code, JSON.toJSONString(accessToken), user);
             } catch (WxErrorException e) {
