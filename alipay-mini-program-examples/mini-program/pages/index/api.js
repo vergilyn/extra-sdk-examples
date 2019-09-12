@@ -1,4 +1,4 @@
-const baseUrl = 'https://demo.antcloud-miniprogram.com';
+const baseUrl = 'http://10.2.14.20:18080';
 
 
 export function getAuthCode(scope) {

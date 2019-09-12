@@ -16,13 +16,10 @@
  */
 package com.alipay.demo.controller.rest;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
-import com.alipay.demo.config.RestConstants;
 import com.alipay.demo.pojo.UserInfo;
 
 import org.jboss.resteasy.spi.HttpResponse;
@@ -32,8 +29,8 @@ import org.jboss.resteasy.spi.HttpResponse;
  *
  */
 @Path("/voucher")
-@Consumes(RestConstants.DEFAULT_CONTENT_TYPE)
-@Produces(RestConstants.DEFAULT_CONTENT_TYPE)
+/*@Consumes(RestConstants.DEFAULT_CONTENT_TYPE)
+@Produces(RestConstants.DEFAULT_CONTENT_TYPE)*/
 public interface UserController {
 
 	/**

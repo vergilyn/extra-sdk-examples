@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "alipay.client.server_url",
+      "type": "java.lang.String",
+      "description": "Description for alipay.client.server_url."
+    },
+    {
+      "name": "alipay.client.app_id",
+      "type": "java.lang.String",
+      "description": "Description for alipay.client.app_id."
+    },
+    {
+      "name": "alipay.client.private_key",
+      "type": "java.lang.String",
+      "description": "Description for alipay.client.private_key."
+    },
+    {
+      "name": "alipay.client.alipay_public_key",
+      "type": "java.lang.String",
+      "description": "Description for alipay.client.alipay_public_key."
+    }
+  ] }
