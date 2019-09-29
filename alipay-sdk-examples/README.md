@@ -8,7 +8,7 @@
 - [查询转账订单接口 `alipay.fund.trans.order.query`](https://docs.open.alipay.com/api_28/alipay.fund.trans.order.query)
 
 
-- [使用沙箱环境 ](https://docs.open.alipay.com/200/105311)
+- [使用沙箱环境](https://docs.open.alipay.com/200/105311)
 
 正式接口：`https://openapi.alipay.com/gateway.do`
 沙箱：`https://openapi.alipaydev.com/gateway.do`

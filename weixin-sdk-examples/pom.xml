@@ -11,6 +11,10 @@
 
     <artifactId>weixin-sdk-examples</artifactId>
 
+    <properties>
+        <wexin-sdk.version>3.5.0</wexin-sdk.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -22,10 +26,18 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- 公众号（包括订阅号和服务号） -->
         <dependency>
             <groupId>com.github.binarywang</groupId>
-            <artifactId>wx-java-mp-starter</artifactId>
-            <version>3.4.0</version>
+            <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+            <version>${wexin-sdk.version}</version>
+        </dependency>
+
+        <!-- 微信支付 -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>wx-java-pay-spring-boot-starter</artifactId>
+            <version>${wexin-sdk.version}</version>
         </dependency>
 
         <dependency>

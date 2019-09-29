@@ -35,4 +35,5 @@ public class AlipayClientProperties {
     private String appId;
     private String privateKey;
     private String alipayPublicKey;
+
 }

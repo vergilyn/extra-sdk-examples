@@ -2,6 +2,10 @@ server:
   port: 8081
 
 spring:
+  profiles:
+    active:
+      - local
+
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -12,9 +16,17 @@ spring:
       content-type: text/html
 
 wx:
+  # 公众号（包括订阅号和服务号）
   mp:
-    appId: wx756c8d0527341085
-    secret: 8c111924f1fcdf0f2a0e12fe72f01da3
-    # token:
-    # aesKey:
-    #config-storage: memory
+    app-id:
+    secret:
+    token:
+    aesKey:
+    config-storage: memory
+
+  # 微信支付
+  pay:
+    app-id:
+    mchId:
+    mchKey:
+    keyPath:

@@ -1,5 +1,7 @@
 package com.vergilyn.examples;
 
+import java.util.UUID;
+
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCreateModel;
 import com.alipay.api.domain.AlipayTradePayModel;
@@ -39,8 +41,8 @@ public class WapPayTest extends AbstractBaseTest {
         model.setProductCode("QUICK_WAP_WAY");
 
         // FIXME 回调地址
-        request.setReturnUrl("http://218.70.10.239:59090/w/pay/alipay_return.htm");
-        request.setNotifyUrl("http://218.70.10.239:59090/s/pay/alipay_notify.html");//在公共参数中设置回跳和通知地址
+        request.setReturnUrl("http://127.0.0.1:59090/w/pay/alipay_return.htm");
+        request.setNotifyUrl("http://127.0.0.1:59090/s/pay/alipay_notify.html");//在公共参数中设置回跳和通知地址
         String form = null; //调用SDK生成表单
         try {
             form = alipayClient.pageExecute(request).getBody();
@@ -179,5 +181,10 @@ public class WapPayTest extends AbstractBaseTest {
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        String uuid = UUID.randomUUID().toString();
+        System.out.println(uuid.getBytes().length);
     }
 }

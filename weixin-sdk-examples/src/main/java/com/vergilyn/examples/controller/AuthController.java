@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 网页授权
  * <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842"></a>
  * @author VergiLyn
  * @date 2019-08-02
@@ -24,11 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/auth")
 @Slf4j
 public class AuthController {
-    @Autowired private WxMpService wxMpService;
+    @Autowired
+    private WxMpService wxMpService;
 
     @RequestMapping("/base")
     public String guide() {
 
+        // FIXME 修改redirectURI
         String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_BASE, "");
 
         return "redirect:" + url;
@@ -36,7 +39,7 @@ public class AuthController {
 
     @RequestMapping("/userinfo")
     public String userinfo() {
-
+        // FIXME 修改redirectURI
         String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_USERINFO, "");
 
         return "redirect:" + url;
@@ -57,7 +60,7 @@ public class AuthController {
 
                 log.info("code: {}, access-token: {}, wx-mp-user: {}", code, JSON.toJSONString(accessToken), user);
             } catch (WxErrorException e) {
-                e.printStackTrace();
+                log.error("获取微信用户信息错误", e);
             }
         }
 
@@ -71,7 +74,7 @@ public class AuthController {
         try {
            return wxMpService.getAccessToken();
         } catch (WxErrorException e) {
-            e.printStackTrace();
+            log.error("获取access_token错误", e);
         }
         return "failure";
     }
