@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  * <a href="https://github.com/aliyun/aliyun-oss-java-sdk/blob/master/src/samples/GetProgressSample.java">GetProgressSample.java</a>
  * @date 2019/2/15
  */
-public class ProgressTest extends BasicTestng {
+public class ProgressTest extends AbstractTestng {
     /**
      * The uploading progress listener. Its progressChanged API is called by the SDK when there's an update.
      */

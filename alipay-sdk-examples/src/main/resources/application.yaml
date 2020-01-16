@@ -5,6 +5,9 @@ spring:
     active:
       - local
 
+
+## 以下即local的配置
+
 # 正式: https://openapi.alipay.com/gateway.do
 # 沙箱: https://openapi.alipaydev.com/gateway.do
 alipay:

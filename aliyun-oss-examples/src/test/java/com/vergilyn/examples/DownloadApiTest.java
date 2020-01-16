@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
  *
  * @date 2019/2/14
  */
-public class DownloadApiTest extends BasicTestng {
+public class DownloadApiTest extends AbstractTestng {
 
     /**
      * <a href="https://help.aliyun.com/document_detail/84823.html">流式下载</a>

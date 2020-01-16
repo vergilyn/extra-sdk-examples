@@ -32,7 +32,7 @@ public class WxPayServiceTest extends AbstractBaseTest{
 
         // 商户订单号，需保持唯一性
         //(只能是字母或者数字，不能包含有其他字符)
-        request.setPartnerTradeNo("409839163a");
+        request.setPartnerTradeNo("20191014094312");
 
         // 商户appid下，某用户的openid
         // 唐x o6IMPxFDUeJyensa-aUFNp8gP3Yk
@@ -42,7 +42,7 @@ public class WxPayServiceTest extends AbstractBaseTest{
         // (是)校验用户姓名选项
         // NO_CHECK：不校验真实姓名
         // FORCE_CHECK：强校验真实姓名
-        request.setCheckName("FORCE_CHECK");
+        request.setCheckName("NO_CHECK");
 
         // (否)收款用户真实姓名。
         // 如果check_name设置为FORCE_CHECK，则必填用户真实姓名
@@ -52,10 +52,10 @@ public class WxPayServiceTest extends AbstractBaseTest{
         request.setAmount(100);
 
         // (是)企业付款备注
-        request.setDescription("测试微信提现（姓名强校验）");
+        request.setDescription("测试微信提现");
 
         // (是)该IP同在商户平台设置的IP白名单中的IP没有关联，该IP可传用户端或者服务端的IP。
-        // request.setSpbillCreateIp("127.0.0.1");
+        request.setSpbillCreateIp("127.0.0.1");
 
         try {
             EntPayResult result = entPayService.entPay(request);

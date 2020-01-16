@@ -65,6 +65,7 @@ Temporary Items
 .idea
 *.iml
 /out/
+.tea
 
 /weixin-sdk-examples/src/main/resources/config/application-local.yaml
 /alipay-sdk-examples/src/main/resources/application-local.yaml

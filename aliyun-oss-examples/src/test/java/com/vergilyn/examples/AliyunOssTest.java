@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
  * <a href="https://help.aliyun.com/document_detail/52834.html">aliyun-oss SDK文档简介<a/>
  * @date 2019/1/10
  */
-public class AliyunOssTest extends BasicTestng {
+public class AliyunOssTest extends AbstractTestng {
 
     @Test
     public void doesObjectExist() {

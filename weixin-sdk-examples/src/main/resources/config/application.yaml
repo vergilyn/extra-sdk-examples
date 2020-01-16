@@ -15,6 +15,7 @@ spring:
     servlet:
       content-type: text/html
 
+## 以下即local的配置
 wx:
   # 公众号（包括订阅号和服务号）
   mp:
@@ -22,7 +23,8 @@ wx:
     secret:
     token:
     aesKey:
-    config-storage: memory
+    config-storage:
+      type: memory
 
   # 微信支付
   pay:
