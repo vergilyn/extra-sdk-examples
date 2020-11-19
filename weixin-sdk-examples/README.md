@@ -1,8 +1,14 @@
 # weixin-sdk-examples
 
-GitHub：[https://github.com/wechat-group/WxJava](https://github.com/wechat-group/WxJava)
+github: <https://github.com/wechat-group/WxJava>
 
 微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/WxJava/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
+
+微信小程序：`weixin-java-miniapp`  
+微信支付：`weixin-java-pay`  
+微信开放平台：`weixin-java-open`  
+公众号（包括订阅号和服务号）：`weixin-java-mp`  
+企业号/企业微信：`weixin-java-cp`  
 
 ## `Demo` 项目
 ### 说明

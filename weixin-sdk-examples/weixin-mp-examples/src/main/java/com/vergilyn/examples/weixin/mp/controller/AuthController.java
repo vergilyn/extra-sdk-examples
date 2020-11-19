@@ -1,4 +1,4 @@
-package com.vergilyn.examples.controller;
+package com.vergilyn.examples.weixin.mp.controller;
 
 import com.alibaba.fastjson.JSON;
 
@@ -17,30 +17,35 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 网页授权
- * <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842"></a>
- * @author VergiLyn
+ * <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">网页授权</a>
+ * @author vergilyn
  * @date 2019-08-02
  */
 @Controller
 @RequestMapping("/auth")
 @Slf4j
 public class AuthController {
+
+    /**
+     * FIXME 2020-11-19 回调地址
+     */
+    public static final String REDIRECT_URI = "http://26uy030473.qicp.vip/auth/index";
+
     @Autowired
     private WxMpService wxMpService;
 
     @RequestMapping("/base")
     public String guide() {
-
-        // FIXME 修改redirectURI
-        String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_BASE, "");
+        String url = wxMpService.getOAuth2Service()
+                    .buildAuthorizationUrl(REDIRECT_URI, WxConsts.OAuth2Scope.SNSAPI_BASE, "");
 
         return "redirect:" + url;
     }
 
     @RequestMapping("/userinfo")
     public String userinfo() {
-        // FIXME 修改redirectURI
-        String url = wxMpService.oauth2buildAuthorizationUrl("http://26uy030473.qicp.vip/auth/index", WxConsts.OAuth2Scope.SNSAPI_USERINFO, "");
+        String url = wxMpService.getOAuth2Service()
+                        .buildAuthorizationUrl(REDIRECT_URI, WxConsts.OAuth2Scope.SNSAPI_USERINFO, "");
 
         return "redirect:" + url;
     }
@@ -50,10 +55,10 @@ public class AuthController {
         if (StringUtils.isNotBlank(code)) {
             try {
                 // code 换 access_token
-                WxMpOAuth2AccessToken accessToken = wxMpService.oauth2getAccessToken(code);
+                WxMpOAuth2AccessToken accessToken = wxMpService.getOAuth2Service().getAccessToken(code);
 
                 // access_token 获取 用户信息
-                WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(accessToken, null);
+                WxMpUser wxMpUser = wxMpService.getOAuth2Service().getUserInfo(accessToken, null);
                 String user = JSON.toJSONString(wxMpUser);
 
                 model.addAttribute("user", user);

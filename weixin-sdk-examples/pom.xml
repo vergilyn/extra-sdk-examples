@@ -10,51 +10,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>weixin-sdk-examples</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>weixin-mp-examples</module>
+    </modules>
 
     <properties>
-        <wexin-sdk.version>3.5.0</wexin-sdk.version>
+        <wexin-sdk.version>3.9.0</wexin-sdk.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- 公众号（包括订阅号和服务号） -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+                <version>${wexin-sdk.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <!-- 公众号（包括订阅号和服务号） -->
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>wx-java-mp-spring-boot-starter</artifactId>
-            <version>${wexin-sdk.version}</version>
-        </dependency>
-
-        <!-- 微信支付 -->
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>wx-java-pay-spring-boot-starter</artifactId>
-            <version>${wexin-sdk.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-        </dependency>
-    </dependencies>
-
+            <!-- 微信支付 -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-pay-spring-boot-starter</artifactId>
+                <version>${wexin-sdk.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
