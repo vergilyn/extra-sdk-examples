@@ -14,27 +14,24 @@ import com.vergilyn.examples.alibaba.dingtalk.AbstractDingTalkClientTestng;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.junit.jupiter.api.Test;
-
-import static com.vergilyn.examples.alibaba.dingtalk.DingtalkApplication.DINGTALK_PROPERTIES;
+import org.testng.annotations.Test;
 
 public class ProcessTestng extends AbstractDingTalkClientTestng {
 	/**
 	 * 请假模版，表单字段：请假类型、开始时间、结束时间、时长、请假事由、图片
+	 * FIXME 2020-11-24,vergilyn 替换成自己的process_code
 	 */
 	private static final String PROCESS_CODE = "PROC-B289EB4A-BFB1-4EA8-95CC-1F7D037C7C0E";
 
 	private static final FastDateFormat FORMAT_YYYY_MM_DD_HH_SS = FastDateFormat.getInstance("yyyy-MM-dd HH:mm");
-
 	private static final String START_DATE_STRING = "2020-11-23 09:00";
-
 	private static final String END_DATE_STRING = "2020-11-23 19:00";
-
-	private static final Long START_DATE_UNIX = FORMAT_YYYY_MM_DD_HH_SS.parse(START_DATE_STRING, new ParsePosition(0))
-			.getTime();
-
-	private static final Long END_DATE_UNIX = FORMAT_YYYY_MM_DD_HH_SS.parse(END_DATE_STRING, new ParsePosition(0))
-			.getTime();
+	private static final Long START_DATE_UNIX = FORMAT_YYYY_MM_DD_HH_SS
+													.parse(START_DATE_STRING, new ParsePosition(0))
+													.getTime();
+	private static final Long END_DATE_UNIX = FORMAT_YYYY_MM_DD_HH_SS
+													.parse(END_DATE_STRING, new ParsePosition(0))
+													.getTime();
 
 	/**
 	 *
@@ -54,14 +51,14 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 	 */
 	@Test
 	public void create() {
-		String serverUrl = "https://oapi.dingtalk.com/topapi/processinstance/create";
+		String serverUrl = "/topapi/processinstance/create";
 		OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();
 		request.setAgentId(getAgentId());
 		request.setProcessCode(PROCESS_CODE);
 
-		request.setOriginatorUserId(DINGTALK_PROPERTIES.getDingtalkUserId());
+		request.setOriginatorUserId(getDingtalkProperties().getDingtalkUserId());
 		// 发起人所在的部门。如果发起人属于根部门，传-1
-		request.setDeptId(DINGTALK_PROPERTIES.getTopDeptId());
+		request.setDeptId(getDingtalkProperties().getTopDeptId());
 
 		request.setFormComponentValues(buildForm());
 
@@ -79,7 +76,7 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 	 */
 	@Test
 	public void getProcessInstance() {
-		String serverUrl = "https://oapi.dingtalk.com/topapi/processinstance/listids";
+		String serverUrl = "/topapi/processinstance/listids";
 
 		OapiProcessinstanceListidsRequest request = new OapiProcessinstanceListidsRequest();
 		request.setProcessCode(PROCESS_CODE);
@@ -88,7 +85,7 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 		request.setSize(10L);
 		request.setCursor(0L);
 		// 发起人用户id列表，用逗号分隔，最大列表长度：10
-		request.setUseridList(DINGTALK_PROPERTIES.getDingtalkUserId());
+		request.setUseridList(getDingtalkProperties().getDingtalkUserId());
 
 		OapiProcessinstanceListidsResponse response = execute(serverUrl, request);
 		printJSONString(response);
@@ -104,7 +101,7 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 			return;
 		}
 
-		serverUrl = "https://oapi.dingtalk.com/topapi/processinstance/get";
+		serverUrl = "/topapi/processinstance/get";
 
 		OapiProcessinstanceGetRequest getRequest = new OapiProcessinstanceGetRequest();
 		getRequest.setProcessInstanceId(instanceId);

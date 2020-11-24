@@ -7,6 +7,7 @@ import com.dingtalk.api.response.OapiGettokenResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoRequest;
 import com.taobao.api.TaobaoResponse;
+import com.vergilyn.examples.alibaba.dingtalk.config.AbstractDingtalkProperties;
 
 import static com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat;
 import static com.vergilyn.examples.alibaba.dingtalk.DingtalkApplication.DINGTALK_PROPERTIES;
@@ -20,13 +21,12 @@ public abstract class AbstractDingTalkClientTestng {
 	/**
 	 * 正常情况下access_token有效期为7200秒，有效期内重复获取返回相同结果，并自动续期。
 	 *
-	 * <p>
-	 *   FIXME 2020-11-24,vergilyn 正式项目中可以通过redis/cache维护access_token，避免无意义的请求
-	 * </p>
+	 * FIXME 2020-11-24,vergilyn 正式项目中可以通过redis/cache维护access_token，避免无意义的请求
+	 *
 	 * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/eev437">获取access_token</a>
 	 */
 	protected String getAccessToken() throws ApiException {
-		String serverUrl = "https://oapi.dingtalk.com/gettoken";
+		String serverUrl = "/gettoken";
 
 		OapiGettokenRequest request = new OapiGettokenRequest();
 		request.setAppkey(getAccessKey());
@@ -47,7 +47,11 @@ public abstract class AbstractDingTalkClientTestng {
 	}
 
 	protected DefaultDingTalkClient client(String serverUrl){
-		return new DefaultDingTalkClient(serverUrl);
+		return new DefaultDingTalkClient(getDingtalkOapiDomain() + serverUrl);
+	}
+
+	protected AbstractDingtalkProperties getDingtalkProperties(){
+		return DINGTALK_PROPERTIES;
 	}
 
 	private String appendAccessToken(String serverUrl){
@@ -60,16 +64,28 @@ public abstract class AbstractDingTalkClientTestng {
 		return serverUrl + "?access_token=" + accessToken;
 	}
 
+	protected String getDingtalkOapiDomain(){
+		return getDingtalkProperties().getDingtalkOapiDomain();
+	}
+
 	protected String getAccessKey(){
-		return DINGTALK_PROPERTIES.getAccessKey();
+		return getDingtalkProperties().getAccessKey();
 	}
 
 	protected String getAccessSecret(){
-		return DINGTALK_PROPERTIES.getAccessSecret();
+		return getDingtalkProperties().getAccessSecret();
 	}
 
 	protected Long getAgentId(){
-		return DINGTALK_PROPERTIES.getAgentId();
+		return getDingtalkProperties().getAgentId();
+	}
+
+	protected String getAesKey(){
+		return getDingtalkProperties().getAesKey();
+	}
+
+	protected String getToken(){
+		return getDingtalkProperties().getToken();
 	}
 
 	protected void printJSONString(TaobaoResponse response){

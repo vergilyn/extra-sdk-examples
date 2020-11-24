@@ -16,6 +16,8 @@ public class WorkTestng extends AbstractDingTalkClientTestng {
 	 */
 	@Test
 	public void sendWorkNotifications(){
+		String serverUrl = "/topapi/message/corpconversation/asyncsend_v2";
+
 		OapiMessageCorpconversationAsyncsendV2Request request = new OapiMessageCorpconversationAsyncsendV2Request();
 
 		/* 类型：Number
@@ -46,7 +48,6 @@ public class WorkTestng extends AbstractDingTalkClientTestng {
 		 */
 		request.setMsg("{\"msgtype\":\"text\",\"text\":{\"content\":\"vergilyn，2020-11-20个人测试工作消息发送。\"}}");
 
-		String serverUrl = "https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2";
 		OapiMessageCorpconversationAsyncsendV2Response response = execute(serverUrl, request);
 
 		printJSONString(response);

@@ -2,7 +2,14 @@ package com.vergilyn.examples.alibaba.dingtalk.config;
 
 import com.vergilyn.examples.alibaba.dingtalk.utils.DingCallbackCrypto;
 
+/**
+ * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/tvu5f4">dingtalk配置获取</a>
+ */
 public interface AbstractDingtalkProperties {
+	String DINGTALK_OAPI_DOMAIN = "https://oapi.dingtalk.com";
+
+	String getDingtalkOapiDomain();
+
 	/**
 	 * 钉钉根部门ID
 	 */
