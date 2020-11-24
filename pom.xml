@@ -12,6 +12,7 @@
         <module>aliyun-oss-examples</module>
         <module>weixin-sdk-examples</module>
         <module>alipay-sdk-examples</module>
+        <module>alibaba-dingtalk-examples</module>
     </modules>
 
     <properties>
@@ -31,6 +32,7 @@
         <apache-common-fileupload.version>1.4</apache-common-fileupload.version>
         <apache-common-httpclient.version>4.5.10</apache-common-httpclient.version>
         <apache-common-collections4.version>4.4</apache-common-collections4.version>
+        <apache-common-codec.version>1.15</apache-common-codec.version>
 
         <slf4j.version>1.7.30</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
@@ -74,6 +76,12 @@
                 <artifactId>httpclient</artifactId>
                 <version>${apache-common-httpclient.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${apache-common-codec.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
@@ -130,6 +138,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
