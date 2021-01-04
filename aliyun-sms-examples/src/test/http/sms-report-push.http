@@ -1,0 +1,18 @@
+POST http://localhost:8080/sms/report/push
+Content-Type: application/json
+
+[
+  {
+    "phone_number": "13900000001",
+    "send_time": "2017-01-01 00:00:00",
+    "report_time": "2017-01-01 00:00:00",
+    "success": true,
+    "err_code": "DELIVERED",
+    "err_msg": "用户接收成功",
+    "sms_size": "1",
+    "biz_id": "12345",
+    "out_id": "67890"
+  }
+]
+
+###
