@@ -3,9 +3,11 @@ package com.vergilyn.examples.alibaba.dingtalk.process;
 import java.text.ParsePosition;
 import java.util.List;
 
+import com.dingtalk.api.request.OapiProcessListbyuseridRequest;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.request.OapiProcessinstanceGetRequest;
 import com.dingtalk.api.request.OapiProcessinstanceListidsRequest;
+import com.dingtalk.api.response.OapiProcessListbyuseridResponse;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
 import com.dingtalk.api.response.OapiProcessinstanceGetResponse;
 import com.dingtalk.api.response.OapiProcessinstanceListidsResponse;
@@ -46,6 +48,11 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 	 *	    "process_code":"PROC-B289EB4A-BFB1-4EA8-95CC-1F7D037C7C0E",
 	 *	    "originator_user_id":"072760165220257910"
 	 *	 }
+	 * </pre>
+	 *
+	 * <pre>
+	 *   // PROCESS_CODE不存在
+	 *   "body":"{\"errcode\":820014,\"errmsg\":\"获取审批模版失败或审批模版已被删除\",\"request_id\":\"1e449n8m292k\"}",
 	 * </pre>
 	 * @see <a href="https://ding-doc.dingtalk.com/document#/org-dev-guide/initiate-approval">发起审批实例</a>
 	 */
@@ -130,5 +137,29 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 		f4.setValue("测试OAPI创建审批流程");
 
 		return Lists.newArrayList(f1, f2, f3, f4);
+	}
+
+	/**
+	 *
+	 * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/tcwmha">可以获取用户可见的审批模板</a>
+	 */
+	@Test
+	public void listbyuserid(){
+		String apiUrl = "/topapi/process/listbyuserid";
+
+		OapiProcessListbyuseridRequest request = new OapiProcessListbyuseridRequest();
+		/*
+		 * 否，不传的话表示获取企业的所有模板
+		 */
+		request.setUserid(null);
+		/* 分页游标，从0开始。
+		 * 根据返回结果里的next_cursor是否为空来判断是否还有下一页，且再次调用时offset设置成next_cursor的值
+		 */
+		request.setOffset(0L);
+		// 分页大小，最大可设置成100
+		request.setSize(100L);
+		OapiProcessListbyuseridResponse response = execute(apiUrl, request);
+
+		printJSONString(response);
 	}
 }

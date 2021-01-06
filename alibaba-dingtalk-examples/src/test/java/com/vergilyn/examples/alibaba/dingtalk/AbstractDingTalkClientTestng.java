@@ -33,7 +33,10 @@ public abstract class AbstractDingTalkClientTestng {
 		request.setAppsecret(getAccessSecret());
 
 		OapiGettokenResponse response = client(serverUrl).execute(request, getAccessKey(), getAccessSecret());
-		return response.getAccessToken();
+		String accessToken = response.getAccessToken();
+
+		System.out.println("AccessToken >>>> " + accessToken);
+		return accessToken;
 	}
 
 	protected final <T extends TaobaoResponse> T execute(String serverUrl, TaobaoRequest<T> request) {
