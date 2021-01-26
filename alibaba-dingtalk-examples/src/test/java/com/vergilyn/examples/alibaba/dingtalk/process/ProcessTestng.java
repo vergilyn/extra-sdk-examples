@@ -21,7 +21,6 @@ import org.testng.annotations.Test;
 public class ProcessTestng extends AbstractDingTalkClientTestng {
 	/**
 	 * 请假模版，表单字段：请假类型、开始时间、结束时间、时长、请假事由、图片
-	 * FIXME 2020-11-24,vergilyn 替换成自己的process_code
 	 */
 	private static final String PROCESS_CODE = "PROC-B289EB4A-BFB1-4EA8-95CC-1F7D037C7C0E";
 
@@ -54,7 +53,7 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 	 *   // PROCESS_CODE不存在
 	 *   "body":"{\"errcode\":820014,\"errmsg\":\"获取审批模版失败或审批模版已被删除\",\"request_id\":\"1e449n8m292k\"}",
 	 * </pre>
-	 * @see <a href="https://ding-doc.dingtalk.com/document#/org-dev-guide/initiate-approval">发起审批实例</a>
+	 * @see <a href="https://developers.dingtalk.com/document/app/initiate-approval">发起审批实例</a>
 	 */
 	@Test
 	public void create() {

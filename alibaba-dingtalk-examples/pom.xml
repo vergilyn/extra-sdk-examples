@@ -22,10 +22,19 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
+        <!-- 2021-01-26 改成本地依赖-->
+        <!--<dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>alibaba-dingtalk-service-sdk</artifactId>
             <version>${alibaba-dingtalk-service-sdk.version}</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>taobao-sdk-java</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/taobao-sdk-java-auto_1479188381469-20210126-source.jar</systemPath>
+            <version>20210126</version>
         </dependency>
 
         <dependency>

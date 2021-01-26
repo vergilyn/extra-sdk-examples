@@ -44,6 +44,30 @@
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>${aliyun-java-sdk-dysmsapi.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alicom</groupId>
+            <artifactId>alicom-mns-receive-sdk</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/alicom-mns-receive-sdk-1.0.1-sources.jar</systemPath>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dybaseapi</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/aliyun-java-sdk-dybaseapi-1.0.0.jar</systemPath>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-sdk-mns</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/aliyun-sdk-mns-1.1.8.jar</systemPath>
+            <version>1.1.8</version>
+        </dependency>
     </dependencies>
 
 </project>

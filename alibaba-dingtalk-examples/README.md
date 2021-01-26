@@ -2,7 +2,7 @@
 
 - [企业内部应用 - 服务端API](https://ding-doc.dingtalk.com/doc#/serverapi2/gh60vz)
 
-SDK: <https://ding-doc.dingtalk.com/doc#/faquestions/vzbp02>
+SDK: <https://developers.dingtalk.com/document/resourcedownload/download-server-sdk>
 ```
 <dependency>
     <groupId>com.aliyun</groupId>
@@ -14,6 +14,8 @@ SDK: <https://ding-doc.dingtalk.com/doc#/faquestions/vzbp02>
 2020-11-24 >>>>  
 与其用dingtalk-sdk，不如http-client自己写。
 
+2021-01-26 >>>>  
+改成本地依赖: [libs](libs)
 
 ## 1. 发起工作流审批
 - [工作流 - 发起审批实例](https://ding-doc.dingtalk.com/doc#/serverapi2/cmct1a)
