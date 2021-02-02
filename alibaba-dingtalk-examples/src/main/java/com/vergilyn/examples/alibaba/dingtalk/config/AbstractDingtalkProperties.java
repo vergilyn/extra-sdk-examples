@@ -8,13 +8,14 @@ import com.vergilyn.examples.alibaba.dingtalk.utils.DingCallbackCrypto;
 public interface AbstractDingtalkProperties {
 	String DINGTALK_OAPI_DOMAIN = "https://oapi.dingtalk.com";
 
-	String getDingtalkOapiDomain();
+	String getDingtalkOapiHost();
 
 	/**
 	 * 钉钉根部门ID
 	 */
 	Long getTopDeptId();
 
+	String getDinggtalkMobile();
 	String getDingtalkUserId();
 
 	/**

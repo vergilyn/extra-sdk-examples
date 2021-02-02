@@ -42,3 +42,9 @@ SDK: <https://developers.dingtalk.com/document/resourcedownload/download-server-
 2.`获取回调失败的结果`
 调用该API后，每次返回的时间列表最多200个，且**dingtalk会立即删除该页的数据！**  
 返回的数据包含很多的event（**不支持查询指定的event**），并且数据中还包含`回调失败数据所属corpid`。
+
+## 2. 钉钉userId
+> <https://www.dingtalk.com/qidian/help-detail-1060107756.html>  
+> 钉钉项目 — userId会不会变化  
+> 1，员工加入组织后，userId值不可编辑，添加用户时可以指定userId值  
+> 2，**员工离开该企业，重新加入时会导致userId值的变化** （说明userid是区分应用的）

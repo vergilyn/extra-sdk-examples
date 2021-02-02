@@ -50,7 +50,7 @@ public abstract class AbstractDingTalkClientTestng {
 	}
 
 	protected DefaultDingTalkClient client(String serverUrl){
-		return new DefaultDingTalkClient(getDingtalkOapiDomain() + serverUrl);
+		return new DefaultDingTalkClient(getDingtalkOapiHost() + serverUrl);
 	}
 
 	protected AbstractDingtalkProperties getDingtalkProperties(){
@@ -67,8 +67,8 @@ public abstract class AbstractDingTalkClientTestng {
 		return serverUrl + "?access_token=" + accessToken;
 	}
 
-	protected String getDingtalkOapiDomain(){
-		return getDingtalkProperties().getDingtalkOapiDomain();
+	protected String getDingtalkOapiHost(){
+		return getDingtalkProperties().getDingtalkOapiHost();
 	}
 
 	protected String getAccessKey(){
