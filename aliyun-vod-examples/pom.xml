@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>extra-sdk-examples</artifactId>
+        <groupId>com.vergilyn.examples</groupId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>aliyun-vod-examples</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <aliyun-java-sdk-vod.version>2.15.12</aliyun-java-sdk-vod.version>
+        <aliyun-java-sdk-core.version>4.5.19</aliyun-java-sdk-core.version>
+        <aliyun-java-sdk-sts.version>3.0.2</aliyun-java-sdk-sts.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-vod</artifactId>
+            <version>${aliyun-java-sdk-vod.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>${aliyun-java-sdk-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-sts</artifactId>
+            <version>${aliyun-java-sdk-sts.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>

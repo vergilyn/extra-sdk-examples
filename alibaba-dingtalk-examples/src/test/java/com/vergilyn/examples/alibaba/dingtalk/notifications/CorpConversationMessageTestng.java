@@ -9,9 +9,13 @@ import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
 import com.vergilyn.examples.alibaba.dingtalk.AbstractDingTalkClientTestng;
 
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
+import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.ActionCard;
+import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.BtnJsonList;
 import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Link;
 import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Msg;
+import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Text;
 
 /**
  * 工作通知消息是以企业工作通知会话中某个微应用的名义推送到员工的通知消息，例如生日祝福、入职提醒等等。
@@ -41,7 +45,7 @@ public class CorpConversationMessageTestng extends AbstractDingTalkClientTestng 
 	 * 5. 该接口是异步发送消息，接口返回成功并不表示用户一定会收到消息，需要通过“查询工作通知消息的发送结果”接口查询是否给用户发送成功。<br/>
 	 * </p>
 	 *
-	 * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/pgoxpy">异步发送工作通知消息</a>
+	 * @see <a href="https://developers.dingtalk.com/document/app/asynchronous-sending-of-enterprise-session-messages">异步发送工作通知消息</a>
 	 */
 	@Test
 	public void corpConversationMsg() {
@@ -60,7 +64,7 @@ public class CorpConversationMessageTestng extends AbstractDingTalkClientTestng 
 		/* 类型：String
 		 * 必填：否
 		 * 示例：123,345
-		 * 描述：接收者的部门id列表，最大列表长度20。接收者是部门ID下包括子部门下的所有用户。
+		 * 描述：接收者的userid列表，最大用户列表长度100。
 		 */
 		request.setUseridList(getDingtalkProperties().getDingtalkUserId());
 
@@ -85,7 +89,7 @@ public class CorpConversationMessageTestng extends AbstractDingTalkClientTestng 
 		 */
 		// request.setMsg("{\"msgtype\":\"text\",\"text\":{\"content\":\"vergilyn，" + now + "测试API `异步发送工作通知消息`。\"}}");
 
-		request.setMsg(buildLinkMsg(now));
+		request.setMsg(buildSingleActionCardMsg(now));
 
 		OapiMessageCorpconversationAsyncsendV2Response response = execute(serverUrl, request);
 
@@ -130,7 +134,21 @@ public class CorpConversationMessageTestng extends AbstractDingTalkClientTestng 
 	}
 
 	/**
-	 * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/ye8tup/3f7aad67">链接消息</a>
+	 * @see <a href="https://developers.dingtalk.com/document/app/message-types-and-data-format/title-dfs-oxn-29n">文本消息</a>
+	 */
+	private Msg buildTextMsg(LocalDateTime date){
+		Text text = new Text();
+		text.setContent("vergilyn 测试API异步发送工作通知消息（text类型）" + date);
+
+		Msg msg = new Msg();
+		msg.setMsgtype("text");
+		msg.setText(text);
+
+		return msg;
+	}
+
+	/**
+	 * @see <a href=https://developers.dingtalk.com/document/app/message-types-and-data-format/title-48c-gj4-sbp">链接消息</a>
 	 */
 	private Msg buildLinkMsg(LocalDateTime date){
 		Link link = new Link();
@@ -161,6 +179,62 @@ public class CorpConversationMessageTestng extends AbstractDingTalkClientTestng 
 		Msg msg = new Msg();
 		msg.setMsgtype("link");
 		msg.setLink(link);
+
+		return msg;
+	}
+
+	/**
+	 * 整体跳转ActionCard样式，支持一个点击Action，必须传入参数 single_title 和 single_url。
+	 *
+	 * @see <a href="https://developers.dingtalk.com/document/app/message-types-and-data-format/title-qbr-ab2-nks">卡片消息</a>
+	 */
+	private Msg buildSingleActionCardMsg(LocalDateTime date){
+		ActionCard card = new ActionCard();
+
+		card.setTitle("vergilyn 整体跳转ActionCard样式");
+		card.setMarkdown("支持**markdown**格式的正文内容 , > " + date);
+		card.setSingleTitle("single_title查看详情");
+		card.setSingleUrl("https://open.dingtalk.com");
+
+		Msg msg = new Msg();
+		msg.setMsgtype("action_card");
+		msg.setActionCard(card);
+
+		return msg;
+	}
+
+	/**
+	 * 独立跳转ActionCard样式，支持多个点击Action，必须传入参数 btn_orientation 和 btn_json_list。
+	 *
+	 * @see <a href="https://developers.dingtalk.com/document/app/message-types-and-data-format/title-qbr-ab2-nks">卡片消息</a>
+	 */
+	private Msg buildMultiActionCardMsg(LocalDateTime date){
+		ActionCard card = new ActionCard();
+
+		card.setTitle("vergilyn 独立跳转ActionCard样式");
+		card.setMarkdown("支持**markdown**格式的正文内容, > " + date);
+
+		/* 类型：String
+		 * 必填：否
+		 * 描述：使用独立跳转ActionCard样式时的按钮排列方式：
+		 *      0：竖直排列
+		 *      1：横向排列必须与btn_json_list同时设置。
+		 */
+		card.setBtnOrientation("1");
+
+		BtnJsonList btn1 = new BtnJsonList();
+		btn1.setTitle("按钮A");
+		btn1.setActionUrl("https://www.taobao.com");
+
+		BtnJsonList btn2 = new BtnJsonList();
+		btn2.setTitle("按钮B");
+		btn2.setActionUrl("https://www.tmall.com");
+
+		card.setBtnJsonList(Lists.newArrayList(btn1, btn2));
+
+		Msg msg = new Msg();
+		msg.setMsgtype("action_card");
+		msg.setActionCard(card);
 
 		return msg;
 	}
