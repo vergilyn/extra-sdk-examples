@@ -16,4 +16,6 @@ public interface AbstractVodProperties {
 	}
 
 	String stsRoleArn();
+
+	String videoId();
 }

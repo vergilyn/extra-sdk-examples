@@ -9,9 +9,11 @@ import com.aliyuncs.profile.DefaultProfile;
 
 public class AliyunVodClient {
 	private static final AliyunVodClient INSTANCE = new AliyunVodClient();
-
 	private final AbstractVodProperties _properties;
 	private final DefaultAcsClient _acsClient;
+
+	public static final String DEFAULT_VIDEO_ID = INSTANCE._properties.videoId();
+
 
 	private AliyunVodClient() {
 		this._properties = new VergilynVodProperties();
