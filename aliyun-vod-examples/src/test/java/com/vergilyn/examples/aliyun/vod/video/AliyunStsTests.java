@@ -45,7 +45,7 @@ public class AliyunStsTests extends AbstractAliyunVodClientTest {
 	public void getVideoPlayAuth(){
 		GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
 		request.setActionName("GetVideoPlayAuth");  // 系统规定参数
-		request.setVideoId(VIDEO_ID);
+		request.setVideoId(_properties.videoId());
 
 		/* 类型：Long
 		 * 必填：否
@@ -67,7 +67,7 @@ public class AliyunStsTests extends AbstractAliyunVodClientTest {
 	public void getPlayInfo(){
 		GetPlayInfoRequest request = new GetPlayInfoRequest();
 		request.setActionName("GetPlayInfo");  // 系统规定参数
-		request.setVideoId(VIDEO_ID);
+		request.setVideoId(_properties.videoId());
 
 		/* 类型：String
 		 * 必填：否
@@ -76,7 +76,7 @@ public class AliyunStsTests extends AbstractAliyunVodClientTest {
 		 */
 		// request.setFormats();
 
-		/* 播放地址过期时间。单位：秒。
+		/* 播放地址过期时间。单位：秒。 默认 3600s(1h)
 		 * 根据 OutputType 最大值不一样
 		 */
 		request.setAuthTimeout(2592000L);  // 30天
@@ -90,4 +90,24 @@ public class AliyunStsTests extends AbstractAliyunVodClientTest {
 		System.out.println(JSON.toJSONString(response, PrettyFormat));
 	}
 
+	/**
+	 * <a href="https://help.aliyun.com/document_detail/56124.html">获取视频播放地址</a>
+	 */
+	@SneakyThrows
+	@Test
+	public void playInfoWithoutExpired(){
+		GetPlayInfoRequest request = new GetPlayInfoRequest();
+		request.setActionName("GetPlayInfo");  // 系统规定参数
+		request.setVideoId(_properties.videoId());
+
+		// 输出地址类型。oss：回源地址。 cdn（默认）：加速地址。
+		request.setOutputType("cdn");
+		request.setAuthTimeout(Long.MAX_VALUE);  // 无效，最大还是 30days，
+
+
+		// ...更多参数参考文档
+
+		GetPlayInfoResponse response = getAcsResponse(request);
+		System.out.println(JSON.toJSONString(response, PrettyFormat));
+	}
 }

@@ -16,7 +16,6 @@ import com.vergilyn.examples.aliyun.vod.config.AliyunVodClient;
  * @see <a href="https://help.aliyun.com/document_detail/61062.html">Java SDK 初始化</a>
  */
 public abstract class AbstractAliyunVodClientTest {
-	protected static final String VIDEO_ID = "3ffdb1d2feef48e892166e9d130978e9";
 
 	protected final AliyunVodClient _vodClient;
 	protected final AbstractVodProperties _properties;
