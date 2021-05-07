@@ -58,7 +58,8 @@ public class UploadMediaTestng extends AbstractDingTalkClientTestng {
 		String imageUrl = "https://pic.cnblogs.com/avatar/1025273/20171112211439.png";
 		byte[] bytes = IOUtils.toByteArray(new URL(imageUrl));
 
-		FileItem fileItem = new FileItem("avatar-hachixxxx.png", bytes, "image/png");
+		// filename: 非空，且需要带后缀
+		FileItem fileItem = new FileItem("hachixxxx.png", bytes);
 
 		OapiMediaUploadResponse response = upload(MediaType.image, fileItem);
 
