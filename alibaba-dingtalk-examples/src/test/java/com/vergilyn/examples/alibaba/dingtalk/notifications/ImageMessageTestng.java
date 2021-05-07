@@ -3,6 +3,7 @@ package com.vergilyn.examples.alibaba.dingtalk.notifications;
 import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Image;
 import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Msg;
 import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
+import com.vergilyn.examples.alibaba.dingtalk.media.UploadMediaTestng;
 
 import org.testng.annotations.Test;
 
@@ -25,10 +26,13 @@ import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Req
 public class ImageMessageTestng extends AbstractAsyncSendEnterpriseMessages {
 
 	/**
+	 * 最好用`image`上传获取到的media_id，如果用`file`上传后的media_id，消息内容看着不如图片本身好看。
+	 *
 	 * @see <a href="https://developers.dingtalk.com/document/app/message-types-and-data-format/title-isi-kyv-dfx">
 	 *     工作通知 - 图片消息</a>
 	 * @see <a href="https://developers.dingtalk.com/document/app/upload-media-files">
 	 *     上传媒体文件</a>
+	 * @see UploadMediaTestng
 	 */
 	@Test
 	public void image(){
@@ -56,7 +60,7 @@ public class ImageMessageTestng extends AbstractAsyncSendEnterpriseMessages {
 		Markdown markdown = new Markdown();
 		// markdown.setTitle("markdown.title 参数不能为空");
 		markdown.setTitle("标题不能为空123");  // 标题改变 算不同的消息内容
-		markdown.setText("![hachixxxx](https://img5.xiujiadian.com/dev/cms-admin/16182158973041618215898409.jpg)");
+		markdown.setText("![hachixxxx](https://pic.cnblogs.com/avatar/1025273/20171112211439.png)");
 		msg.setMarkdown(markdown);
 
 		OapiMessageCorpconversationAsyncsendV2Response response = asyncSend(msg);
