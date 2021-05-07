@@ -18,6 +18,8 @@ public interface AbstractDingtalkProperties {
 	String getDinggtalkMobile();
 	String getDingtalkUserId();
 
+	String getMediaId();
+
 	/**
 	 * 接收事件回调的url，必须是公网可以访问的url地址。
 	 */

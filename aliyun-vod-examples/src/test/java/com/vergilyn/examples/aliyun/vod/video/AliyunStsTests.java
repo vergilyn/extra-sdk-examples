@@ -3,8 +3,6 @@ package com.vergilyn.examples.aliyun.vod.video;
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.auth.sts.AssumeRoleRequest;
 import com.aliyuncs.auth.sts.AssumeRoleResponse;
-import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
-import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.vergilyn.examples.aliyun.vod.AbstractAliyunVodClientTest;
@@ -56,58 +54,6 @@ public class AliyunStsTests extends AbstractAliyunVodClientTest {
 		request.setAuthInfoTimeout(3000L);
 
 		GetVideoPlayAuthResponse response = getAcsResponse(request);
-		System.out.println(JSON.toJSONString(response, PrettyFormat));
-	}
-
-	/**
-	 * <a href="https://help.aliyun.com/document_detail/56124.html">获取视频播放地址</a>
-	 */
-	@SneakyThrows
-	@Test
-	public void getPlayInfo(){
-		GetPlayInfoRequest request = new GetPlayInfoRequest();
-		request.setActionName("GetPlayInfo");  // 系统规定参数
-		request.setVideoId(_properties.videoId());
-
-		/* 类型：String
-		 * 必填：否
-		 * 示例：mp4,mp3
-		 * 描述：视频流格式。多个用英文逗号（,）分隔。支持格式：mp4、m3u8、mp3、mpd
-		 */
-		// request.setFormats();
-
-		/* 播放地址过期时间。单位：秒。 默认 3600s(1h)
-		 * 根据 OutputType 最大值不一样
-		 */
-		request.setAuthTimeout(2592000L);  // 30天
-
-		// 输出地址类型。oss：回源地址。 cdn（默认）：加速地址。
-		request.setOutputType("oss");
-
-		// ...更多参数参考文档
-
-		GetPlayInfoResponse response = getAcsResponse(request);
-		System.out.println(JSON.toJSONString(response, PrettyFormat));
-	}
-
-	/**
-	 * <a href="https://help.aliyun.com/document_detail/56124.html">获取视频播放地址</a>
-	 */
-	@SneakyThrows
-	@Test
-	public void playInfoWithoutExpired(){
-		GetPlayInfoRequest request = new GetPlayInfoRequest();
-		request.setActionName("GetPlayInfo");  // 系统规定参数
-		request.setVideoId(_properties.videoId());
-
-		// 输出地址类型。oss：回源地址。 cdn（默认）：加速地址。
-		request.setOutputType("cdn");
-		request.setAuthTimeout(Long.MAX_VALUE);  // 无效，最大还是 30days，
-
-
-		// ...更多参数参考文档
-
-		GetPlayInfoResponse response = getAcsResponse(request);
 		System.out.println(JSON.toJSONString(response, PrettyFormat));
 	}
 }

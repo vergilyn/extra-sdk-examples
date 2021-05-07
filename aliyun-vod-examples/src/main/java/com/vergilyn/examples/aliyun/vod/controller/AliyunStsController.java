@@ -3,7 +3,9 @@ package com.vergilyn.examples.aliyun.vod.controller;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoResponse;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.vergilyn.examples.aliyun.vod.api.AliyunStsApi;
 import com.vergilyn.examples.aliyun.vod.config.AliyunVodClient;
@@ -40,8 +42,14 @@ public class AliyunStsController {
 	}
 
 	@GetMapping(value = "/get_play_info", produces = APPLICATION_JSON_VALUE)
-	public GetPlayInfoResponse getPlayInfo(){
-		return stsApi.getPlayInfo(AliyunVodClient.getInstance().getProperties().videoId());
+	public GetPlayInfoResponse getPlayInfo(@RequestParam String vodId, @RequestParam("callback") String callback){
+		GetPlayInfoResponse response = stsApi.getPlayInfo(vodId);
+		System.out.println("play-info >>>>> " + JSON.toJSONString(response, SerializerFeature.PrettyFormat));
+
+		GetVideoInfoResponse videoInfo = stsApi.getVideoInfo(vodId);
+		System.out.println("video-info >>>>> " + JSON.toJSONString(videoInfo, SerializerFeature.PrettyFormat));
+
+		return response;
 	}
 
 	@PutMapping(value = "/incr_play_count/{vid}", produces = APPLICATION_JSON_VALUE)

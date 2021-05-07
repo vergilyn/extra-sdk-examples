@@ -6,6 +6,8 @@ import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoResponse;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.vergilyn.examples.aliyun.vod.config.AliyunVodClient;
@@ -32,6 +34,22 @@ public class AliyunStsApi {
 		// 具体规则请参考API文档中的格式要求
 		String roleSessionName = "vergilyn-session-name";// 自定义即可
 		request.setRoleSessionName(roleSessionName);
+
+		return _vodClient.getAcsResponse(request);
+	}
+
+
+	/**
+	 * <a href="https://help.aliyun.com/document_detail/52835.html">获取视频信息</a>
+	 * @return
+	 */
+	@SneakyThrows
+	public GetVideoInfoResponse getVideoInfo(String videoId){
+		GetVideoInfoRequest request = new GetVideoInfoRequest();
+		request.setActionName("GetVideoInfo");  // 系统规定参数
+		request.setVideoId(videoId);
+
+		// ...更多参数参考文档
 
 		return _vodClient.getAcsResponse(request);
 	}

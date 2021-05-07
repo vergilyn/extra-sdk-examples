@@ -65,6 +65,18 @@
             font-size: 14px;
             padding-left: 30px;
         }
+
+        pre {outline: 1px solid #ccc; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }pre {outline: 1px solid #ccc; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }
     </style>
 </head>
 <body>
@@ -117,6 +129,11 @@
     <div class="upload">
         <div>
             <input type="file" id="fileUpload">
+            <div id="video-div">
+
+            </div>
+            <label class="status">视频总时长: <span id="videoDuration"></span></label>
+
             <label class="status">上传状态: <span id="status"></span></label>
         </div>
         <div class="upload-type">
@@ -129,6 +146,8 @@
     </div>
     <div class="info">点播STS参数如何获取，请查阅<a href="https://help.aliyun.com/document_detail/57114.html" target="_blakn">
         获取STS</a></div>
+
+    <pre id="video-paly-info"></pre>
 </div>
 <script>
     //兼容IE11
@@ -153,6 +172,7 @@
 
     $(document).ready(function () {
         var stsUrl = 'http://127.0.0.1:8080/aliyun/vod/get_upload_sts';
+        var getPlayInfoUrl = 'http://127.0.0.1:8080/aliyun/vod/get_play_info';
 
         /**
          * 创建一个上传对象
@@ -165,10 +185,12 @@
                 parallel: $('#parallel').val() || 5,
                 retryCount: $('#retryCount').val() || 3,
                 retryDuration: $('#retryDuration').val() || 2,
-                // region: $('#region').val(),
+                // region: $('#region').val(),  // 默认 cn-shanghai
+
                 // VFIXME 2021-04-16 必传“数字类型”，即便不是真实的 `阿里云账号ID`都可以。
                 //  否则了能部分JS-SDK “Specified parameter UserId is not valid.”
                 userId: $('#userId').val(),
+
                 // 添加文件成功
                 addFileSuccess: function (uploadInfo) {
                     $('#stsUpload').attr('disabled', false)
@@ -209,6 +231,28 @@
                     console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint
                         + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
                     $('#status').text('文件上传成功!')
+
+
+                    /* VFIXME 2021-04-22
+                     *   如果此时立即获取视频播放信息：[获取视频播放地址](https://help.aliyun.com/document_detail/56124.html)
+                     *   其返回结果中，可能 cover、duration 为null
+                     */
+
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: getPlayInfoUrl + "?vodId=" + uploadInfo.videoId,
+                        contentType: "application/json",
+                        dataType: "jsonp",
+                        jsonp: "callback",
+                        data: "",
+                        success: function (data) {
+                            console.log("play-info", data);
+                            $("#video-paly-info").html(data);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    })
                 },
                 // 文件上传失败
                 onUploadFailed: function (uploadInfo, code, message) {
@@ -279,14 +323,26 @@
             }
             var Title = file.name
 
+            // 获取上传视频的总时长
+            var fileurl = URL.createObjectURL(file);
+            var videoElement = new Audio(fileurl);
+            console.log("new Video() after >>>> ", videoElement.duration)
+            var duration;
+            videoElement.addEventListener("loadedmetadata", function (_event) {
+                duration = videoElement.duration;  // 单位: 秒，有小数 例如 1.87
+                console.log("loadedmetadata >>>> ", videoElement.duration)
+                console.log("loadedmetadata >>>> ", _event)
+                $("#videoDuration").text(duration);
+            });
+
             /* vergilyn-comment, 2021-03-31 >>>>
              *   userData支持的属性请参见点播服务的接口:
              *   [CreateUploadVideo](https://help.aliyun.com/document_detail/55407.html)
              */
             var userDataJSON = {
                 "Vod": {
-                    "Title": "userData-" + file.name,
-                    "CoverURL": "https://cdn.duitang.com/uploads/item/201207/22/20120722075151_s88n2.jpeg"
+                    "Title": "userData-" + file.name
+                    // , "CoverURL": "https://pic.cnblogs.com/avatar/1025273/20171112211439.png"
                 }
             }
 
