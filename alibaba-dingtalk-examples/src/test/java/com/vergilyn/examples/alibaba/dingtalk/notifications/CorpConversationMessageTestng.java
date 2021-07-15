@@ -107,9 +107,9 @@ public class CorpConversationMessageTestng extends AbstractAsyncSendEnterpriseMe
 		ActionCard card = new ActionCard();
 
 		card.setTitle("vergilyn 整体跳转ActionCard样式");
-		card.setMarkdown("支持**markdown**格式的正文内容 , > " + date);
+		card.setMarkdown("![](https://pic.cnblogs.com/avatar/1025273/20171112211439.png)  支持**markdown**格式的正文内容 , > " + date);
 		card.setSingleTitle("single_title查看详情");
-		card.setSingleUrl("https://open.dingtalk.com");
+		card.setSingleUrl("https://www.baidu.com");
 
 		Msg msg = new Msg();
 		msg.setMsgtype("action_card");

@@ -51,7 +51,7 @@ public abstract class AbstractAsyncSendEnterpriseMessages extends AbstractDingTa
 		 * 示例：123,345
 		 * 描述：接收者的userid列表，最大用户列表长度100。
 		 */
-		request.setUseridList(getDingtalkProperties().getDingtalkUserId());
+		request.setUseridList(dingtalkProperties().dingtalkUserId());
 
 		/* 类型：String
 		 * 必填：否

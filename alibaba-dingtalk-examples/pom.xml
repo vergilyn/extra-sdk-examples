@@ -33,8 +33,7 @@
             <groupId>com.alibaba</groupId>
             <artifactId>taobao-sdk-java</artifactId>
             <scope>system</scope>
-            <systemPath>${basedir}/libs/taobao-sdk-java-auto_1479188381469-20210126-source.jar</systemPath>
-            <version>20210126</version>
+            <systemPath>${basedir}/libs/taobao-sdk-java-auto-20210709-source.jar</systemPath>
         </dependency>
 
         <dependency>

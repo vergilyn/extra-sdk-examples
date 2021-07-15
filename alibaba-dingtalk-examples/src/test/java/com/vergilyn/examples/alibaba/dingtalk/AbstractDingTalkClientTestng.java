@@ -49,12 +49,18 @@ public abstract class AbstractDingTalkClientTestng {
 		}
 	}
 
-	protected DefaultDingTalkClient client(String serverUrl){
-		return new DefaultDingTalkClient(getDingtalkOapiHost() + serverUrl);
+	protected final <T extends TaobaoResponse> T executeExplicitUrl(String serverUrl, TaobaoRequest<T> request) {
+		DefaultDingTalkClient client = new DefaultDingTalkClient(serverUrl);;
+		try {
+			return client.execute(request, getAccessKey(), getAccessSecret());
+		} catch (ApiException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	protected AbstractDingtalkProperties getDingtalkProperties(){
-		return DINGTALK_PROPERTIES;
+	protected DefaultDingTalkClient client(String serverUrl){
+		return new DefaultDingTalkClient(getDingtalkOapiHost() + serverUrl);
 	}
 
 	private String appendAccessToken(String serverUrl){
@@ -67,28 +73,32 @@ public abstract class AbstractDingTalkClientTestng {
 		return serverUrl + "?access_token=" + accessToken;
 	}
 
+	protected AbstractDingtalkProperties dingtalkProperties(){
+		return DINGTALK_PROPERTIES;
+	}
+
 	protected String getDingtalkOapiHost(){
-		return getDingtalkProperties().getDingtalkOapiHost();
+		return dingtalkProperties().dingtalkOapiHost();
 	}
 
 	protected String getAccessKey(){
-		return getDingtalkProperties().getAccessKey();
+		return dingtalkProperties().accessKey();
 	}
 
 	protected String getAccessSecret(){
-		return getDingtalkProperties().getAccessSecret();
+		return dingtalkProperties().accessSecret();
 	}
 
 	protected Long getAgentId(){
-		return getDingtalkProperties().getAgentId();
+		return dingtalkProperties().agentId();
 	}
 
 	protected String getAesKey(){
-		return getDingtalkProperties().getAesKey();
+		return dingtalkProperties().aesKey();
 	}
 
 	protected String getToken(){
-		return getDingtalkProperties().getToken();
+		return dingtalkProperties().token();
 	}
 
 	protected void printJSONString(TaobaoResponse response){

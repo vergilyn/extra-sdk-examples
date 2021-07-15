@@ -37,7 +37,7 @@ public class ImageMessageTestng extends AbstractAsyncSendEnterpriseMessages {
 	@Test
 	public void image(){
 		Image image = new Image();
-		image.setMediaId(getDingtalkProperties().getMediaId());
+		image.setMediaId(dingtalkProperties().mediaId());
 
 		Msg msg = new Msg();
 		msg.setMsgtype("image");

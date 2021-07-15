@@ -26,13 +26,13 @@ public class UserInfoTestng extends AbstractDingTalkClientTestng {
 		String apiUrl = "/topapi/v2/user/getbymobile";
 
 		OapiV2UserGetbymobileRequest req = new OapiV2UserGetbymobileRequest();
-		req.setMobile(getDingtalkProperties().getDinggtalkMobile());
+		req.setMobile(dingtalkProperties().moblieOther());
 
 		OapiV2UserGetbymobileResponse response = execute(apiUrl, req);
 
 		printJSONString(response);
 
-		boolean eq = StringUtils.endsWithIgnoreCase(getDingtalkProperties().getDingtalkUserId(), response.getResult().getUserid());
+		boolean eq = StringUtils.endsWithIgnoreCase(dingtalkProperties().dingtalkUserId(), response.getResult().getUserid());
 		Assertions.assertTrue(eq);
 	}
 

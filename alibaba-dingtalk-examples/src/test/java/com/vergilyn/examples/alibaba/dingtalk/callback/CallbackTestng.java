@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
  * @see <a href="https://github.com/open-dingtalk/dingtalk-callback-Crypto">钉钉回调加解密类库和对应demo</a>
  */
 public class CallbackTestng extends AbstractDingTalkClientTestng {
-	private final String callbackUrl = getDingtalkProperties().getCallbackDomain() + "/callback/event-receive";
+	private final String callbackUrl = dingtalkProperties().callbackDomain() + "/callback/event-receive";
 
 	/**
 	 * VQUESTION 2020-11-24,vergilyn 是否需要避免多次registry？

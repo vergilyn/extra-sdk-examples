@@ -62,9 +62,9 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 		request.setAgentId(getAgentId());
 		request.setProcessCode(PROCESS_CODE);
 
-		request.setOriginatorUserId(getDingtalkProperties().getDingtalkUserId());
+		request.setOriginatorUserId(dingtalkProperties().dingtalkUserId());
 		// 发起人所在的部门。如果发起人属于根部门，传-1
-		request.setDeptId(getDingtalkProperties().getTopDeptId());
+		request.setDeptId(dingtalkProperties().topDeptId());
 
 		request.setFormComponentValues(buildForm());
 
@@ -91,7 +91,7 @@ public class ProcessTestng extends AbstractDingTalkClientTestng {
 		request.setSize(10L);
 		request.setCursor(0L);
 		// 发起人用户id列表，用逗号分隔，最大列表长度：10
-		request.setUseridList(getDingtalkProperties().getDingtalkUserId());
+		request.setUseridList(dingtalkProperties().dingtalkUserId());
 
 		OapiProcessinstanceListidsResponse response = execute(serverUrl, request);
 		printJSONString(response);

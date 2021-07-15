@@ -26,9 +26,9 @@ public class BranchProcessTestng extends AbstractDingTalkClientTestng {
 		request.setAgentId(getAgentId());
 		request.setProcessCode(PROCESS_CODE);
 
-		request.setOriginatorUserId(getDingtalkProperties().getDingtalkUserId());
+		request.setOriginatorUserId(dingtalkProperties().dingtalkUserId());
 		// 发起人所在的部门。如果发起人属于根部门，传-1
-		request.setDeptId(getDingtalkProperties().getTopDeptId());
+		request.setDeptId(dingtalkProperties().topDeptId());
 
 		request.setFormComponentValues(buildForm());
 

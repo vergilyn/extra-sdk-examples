@@ -17,7 +17,7 @@ public class DingtalkApplication {
 
 	@Bean
 	public DingCallbackCrypto dingCallbackCrypto() throws DingCallbackCrypto.DingTalkEncryptException {
-		return new DingCallbackCrypto(DINGTALK_PROPERTIES.getToken(), DINGTALK_PROPERTIES.getAesKey(), DINGTALK_PROPERTIES.getCorpId());
+		return new DingCallbackCrypto(DINGTALK_PROPERTIES.token(), DINGTALK_PROPERTIES.aesKey(), DINGTALK_PROPERTIES.corpId());
 	}
 
 	public static void main(String[] args) {
