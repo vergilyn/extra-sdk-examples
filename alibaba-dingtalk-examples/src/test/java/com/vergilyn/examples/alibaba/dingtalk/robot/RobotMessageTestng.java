@@ -1,13 +1,14 @@
 package com.vergilyn.examples.alibaba.dingtalk.robot;
 
-import java.text.MessageFormat;
-
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.vergilyn.examples.alibaba.dingtalk.AbstractDingTalkClientTestng;
-
 import org.assertj.core.util.Lists;
 import org.testng.annotations.Test;
+
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -23,9 +24,13 @@ public class RobotMessageTestng extends AbstractDingTalkClientTestng {
 	 * 消息发送太频繁会严重影响群成员的使用体验，大量发消息的场景 (譬如系统监控报警) 可以将这些信息进行整合，通过markdown消息以摘要的形式发送到群里。
 	 *
 	 * @see <a href="https://developers.dingtalk.com/document/app/custom-robot-access/title-72m-8ag-pqw">机器人消息类型及数据格式</a>
+	 * @see <a href="https://open.dingtalk.com/document/robots/customize-robot-security-settings">自定义机器人安全设置</a>
 	 */
 	@Test
 	public void msgText(){
+		LocalDateTime now = LocalDateTime.now();
+		String nowStr = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
 		final String robotWebhook = dingtalkProperties().robotWebhook();
 
 		OapiRobotSendRequest request = new OapiRobotSendRequest();
@@ -37,8 +42,8 @@ public class RobotMessageTestng extends AbstractDingTalkClientTestng {
 
 		// 内容中也可以写入 @xx，格式是 `@dingtalkUserId`。
 		// 貌似，会导致 `at`参数无效
-		text.setContent(MessageFormat.format("[vergilyn] 测试文本消息的内容，内容中 @{0} @{1} ，多个@参数混用测试",
-				dingtalkProperties().dingtalkUserId(), dingtalkProperties().dingtalkUserIdOther()));
+		text.setContent(MessageFormat.format("[vergilyn]测试文本消息的内容 ",
+				dingtalkProperties().dingtalkUserId(), dingtalkProperties().dingtalkUserIdOther(), nowStr));
 
 		request.setText(text);
 

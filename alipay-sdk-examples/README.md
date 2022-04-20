@@ -1,6 +1,6 @@
 # alipay-sdk-examples
 
-- [服务端 SDK ](https://docs.open.alipay.com/54/103419)
+- [服务端 SDK（通用版）](https://docs.open.alipay.com/54/103419)
 - [单笔转账到支付宝账户](https://docs.open.alipay.com/309/106235/)
 
 

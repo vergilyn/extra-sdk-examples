@@ -79,6 +79,12 @@ public interface AbstractDingtalkProperties {
 
 	//endregion
 
+	//region 企业内部机器人
+	String robotEnterpriseAgentId();
+	String robotEnterpriseAppKey();
+	String robotEnterpriseAppSecret();
+	//endregion
+
 	//region 机器人 https://developers.dingtalk.com/document/app/custom-robot-access
 	String robotWebhook();
 	//endregion

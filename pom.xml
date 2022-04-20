@@ -16,6 +16,7 @@
         <module>alibaba-dingtalk-examples</module>
         <module>aliyun-sms-examples</module>
         <module>aliyun-vod-examples</module>
+        <module>baidu-mini-examples</module>
     </modules>
 
     <properties>
@@ -25,7 +26,7 @@
 
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring-boot-dependencies.version>2.2.2.RELEASE</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>2.2.11.RELEASE</spring-boot-dependencies.version>
         <projectlombok.version>1.18.10</projectlombok.version>
         <google-guava.version>30.1-jre</google-guava.version>
         <alibaba-fastjson.version>1.2.62</alibaba-fastjson.version>
@@ -44,8 +45,10 @@
         <slf4j.version>1.7.30</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
 
-        <testng.version>7.1.0</testng.version>
-        <junit.version>4.13</junit.version>
+        <!-- test -->
+        <testng.version>7.3.0</testng.version>
+        <mockito-core.version>3.7.7</mockito-core.version>
+        <hamcrest.version>2.2</hamcrest.version>
     </properties>
 
     <dependencyManagement>
@@ -146,12 +149,24 @@
             <version>${alibaba-fastjson.version}</version>
         </dependency>
 
+        <!-- logger -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
         <!-- test -->
         <!-- spring-boot-starter-test 包含logger的依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <exclusions>
+                <!-- If you have migrated your tests to JUnit 5, you should exclude JUnit 4 support -->
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -159,10 +174,23 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- mockito -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

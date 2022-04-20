@@ -2,14 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>extra-sdk-examples</artifactId>
-        <groupId>com.vergilyn.examples</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.vergilyn.examples</groupId>
+        <artifactId>extra-sdk-examples</artifactId>
+        <version>${revision}</version>
+    </parent>
+
     <artifactId>alipay-sdk-examples</artifactId>
+
+    <properties>
+        <alipay-sdk-java.version>4.16.21.ALL</alipay-sdk-java.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -20,7 +25,7 @@
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
-            <version>4.6.0.ALL</version>
+            <version>${alipay-sdk-java.version}</version>
         </dependency>
 
     </dependencies>

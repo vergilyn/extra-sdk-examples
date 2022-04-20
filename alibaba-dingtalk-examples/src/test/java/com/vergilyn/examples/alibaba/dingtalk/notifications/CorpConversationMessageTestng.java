@@ -1,18 +1,14 @@
 package com.vergilyn.examples.alibaba.dingtalk.notifications;
 
-import java.time.LocalDateTime;
-
 import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
 import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
-
+import lombok.SneakyThrows;
 import org.testng.annotations.Test;
 import org.testng.collections.Lists;
 
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.ActionCard;
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.BtnJsonList;
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Link;
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Msg;
-import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.Text;
+import java.time.LocalDateTime;
+
+import static com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request.*;
 
 /**
  *
@@ -29,7 +25,7 @@ public class CorpConversationMessageTestng extends AbstractAsyncSendEnterpriseMe
 	@Test
 	public void corpConversationMsg() {
 		LocalDateTime now = LocalDateTime.now();
-		Msg msg = buildSingleActionCardMsg(now);
+		Msg msg = buildTextMsg(now);
 
 		OapiMessageCorpconversationAsyncsendV2Response response = asyncSend(msg);
 
@@ -53,11 +49,31 @@ public class CorpConversationMessageTestng extends AbstractAsyncSendEnterpriseMe
 	 */
 	private Msg buildTextMsg(LocalDateTime date){
 		Text text = new Text();
-		text.setContent("vergilyn 测试API异步发送工作通知消息（text类型）" + date);
+		text.setContent("vergilyn https://www.baidu.com 测试API异步发送工作通知消息（text类型）\n换行1111\n换行2222\n" + date);
 
 		Msg msg = new Msg();
 		msg.setMsgtype("text");
 		msg.setText(text);
+
+		return msg;
+	}
+
+	private Msg buildMarkdownMsg(LocalDateTime date){
+		Markdown markdown = new Markdown();
+		// title 被没有展示
+		markdown.setTitle("消息系统消息发送失败");
+		// 换行还是`\n`，不是 双空格
+		String LF = "  \n  ";
+		markdown.setText(
+				"### <font color=\"blue\">消息系统消息发送失败</font>" + LF
+				+ "场景ID: 123" + LF
+				+ "时间：" + date + LF
+				+ "原因: {\"data\":\"{\\\"ret\\\":\\\"SUCCESS\\\",\\\"data\\\":{\\\"msg_id\\\":\\\"uasg16e164620280981901\\\"}}\",\"status\":200}"
+		);
+
+		Msg msg = new Msg();
+		msg.setMarkdown(markdown);
+		msg.setMsgtype("markdown");
 
 		return msg;
 	}
@@ -103,13 +119,23 @@ public class CorpConversationMessageTestng extends AbstractAsyncSendEnterpriseMe
 	 *
 	 * @see <a href="https://developers.dingtalk.com/document/app/message-types-and-data-format/title-qbr-ab2-nks">卡片消息</a>
 	 */
+	@SneakyThrows
 	private Msg buildSingleActionCardMsg(LocalDateTime date){
 		ActionCard card = new ActionCard();
 
+		String targetUrl = "https://www.baidu.com";
+
 		card.setTitle("vergilyn 整体跳转ActionCard样式");
-		card.setMarkdown("![](https://pic.cnblogs.com/avatar/1025273/20171112211439.png)  支持**markdown**格式的正文内容 , > " + date);
+		card.setMarkdown("https://pic.cnblogs.com/avatar/1025273/20171112211439.png  支持**markdown**格式的正文内容 , > " + date);
 		card.setSingleTitle("single_title查看详情");
-		card.setSingleUrl("https://www.baidu.com");
+		card.setSingleUrl(targetUrl);
+
+		// dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fwww.dingtalk.com&pc_slide=true
+		// pc_slide
+		// true：表示在PC客户端侧边栏打开
+		// false：表示在浏览器打开
+		// String url = String.format("dingtalk://dingtalkclient/page/link?url=%s&pc_slide=false", URLEncoder.encode(targetUrl, "UTF-8"));
+		// card.setSingleUrl(url);
 
 		Msg msg = new Msg();
 		msg.setMsgtype("action_card");

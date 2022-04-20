@@ -1,6 +1,4 @@
-package com.vergilyn.examples;
-
-import java.util.UUID;
+package com.vergilyn.examples.alipay.pay;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCreateModel;
@@ -14,7 +12,7 @@ import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
-
+import com.vergilyn.examples.alipay.AbstractAlipayClientTests;
 import org.testng.annotations.Test;
 
 /**
@@ -23,7 +21,7 @@ import org.testng.annotations.Test;
  * @author VergiLyn
  * @date 2019-09-12
  */
-public class WapPayTest extends AbstractBaseTest {
+public class WapPayTest extends AbstractAlipayClientTests {
 
     /**
      * 手机网站支付接口alipay.trade.wap.pay
@@ -45,7 +43,7 @@ public class WapPayTest extends AbstractBaseTest {
         request.setNotifyUrl("http://127.0.0.1:59090/s/pay/alipay_notify.html");//在公共参数中设置回跳和通知地址
         String form = null; //调用SDK生成表单
         try {
-            form = alipayClient.pageExecute(request).getBody();
+            form = _alipayClient.pageExecute(request).getBody();
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             System.out.println(form);
         } catch (AlipayApiException e) {
@@ -117,7 +115,7 @@ public class WapPayTest extends AbstractBaseTest {
         //                "  }");
         AlipayTradePayResponse response = null;
         try {
-            response = alipayClient.execute(request);
+            response = _alipayClient.execute(request);
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         } catch (AlipayApiException e) {
             e.printStackTrace();
@@ -148,7 +146,7 @@ public class WapPayTest extends AbstractBaseTest {
                 + "\"business_params\":\"{\\\"data\\\":\\\"123\\\"}\"" + "}");
         AlipayTradeCreateResponse response = null;
         try {
-            response = alipayClient.execute(request);
+            response = _alipayClient.execute(request);
             System.out.println(response.getBody());
         } catch (AlipayApiException e) {
             e.printStackTrace();
@@ -175,16 +173,11 @@ public class WapPayTest extends AbstractBaseTest {
         model.setSubject("Iphone6 16G");
         AlipayTradePrecreateResponse response = null;
         try {
-            response = alipayClient.execute(request);
+            response = _alipayClient.execute(request);
             System.out.println(response.getBody());
             System.out.println(response.getQrCode());
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        String uuid = UUID.randomUUID().toString();
-        System.out.println(uuid.getBytes().length);
     }
 }

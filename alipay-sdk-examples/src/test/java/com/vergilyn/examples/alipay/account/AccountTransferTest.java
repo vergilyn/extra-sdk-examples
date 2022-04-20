@@ -1,4 +1,4 @@
-package com.vergilyn.examples;
+package com.vergilyn.examples.alipay.account;
 
 import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
@@ -6,9 +6,9 @@ import com.alipay.api.request.AlipayFundAccountQueryRequest;
 import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
 import com.alipay.api.response.AlipayFundAccountQueryResponse;
 import com.alipay.api.response.AlipayFundTransToaccountTransferResponse;
-
+import com.vergilyn.examples.alipay.AbstractAlipayClientTests;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * <a href="https://docs.open.alipay.com/api_28/alipay.fund.trans.toaccount.transfer">单笔转账到支付宝账户接口</a>
@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
  * @date 2019-09-12
  */
 @Slf4j
-public class AccountTransferTest extends AbstractBaseTest {
+public class AccountTransferTest extends AbstractAlipayClientTests {
 
     @Test
     public void alipayFundTransToaccountTransferRequest() {
@@ -28,8 +28,8 @@ public class AccountTransferTest extends AbstractBaseTest {
 
         AlipayFundTransToaccountTransferResponse response = null;
         try {
-            response = alipayClient.execute(request);
-            log.info("Alipay response >>>> {}, {}", response.isSuccess(), JSON.toJSON(response));
+            response = _alipayClient.execute(request);
+            log.info("Alipay response >>>> {}, {}", response.isSuccess(), JSON.toJSONString(response, true));
 
         } catch (AlipayApiException e) {
             log.error("单笔转账到支付宝账户接口错误", e);
@@ -55,10 +55,10 @@ public class AccountTransferTest extends AbstractBaseTest {
                 "  }");
         AlipayFundAccountQueryResponse response = null;
         try {
-            response = alipayClient.execute(request);
-            System.out.println("支付宝资金账户资产 >>>> " + response.isSuccess() + ", " + JSON.toJSONString(response));
+            response = _alipayClient.execute(request);
+            System.out.println("支付宝资金账户资产 >>>> " + response.isSuccess() + ", " + JSON.toJSONString(response, true));
         } catch (AlipayApiException e) {
-            logger.error(e);
+            log.error("", e);
         }
 
     }

@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>weixin-sdk-examples</artifactId>
         <groupId>com.vergilyn.examples</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>weixin-sdk-examples</artifactId>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>weixin-mp-examples</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- 公众号（包括订阅号和服务号） -->
