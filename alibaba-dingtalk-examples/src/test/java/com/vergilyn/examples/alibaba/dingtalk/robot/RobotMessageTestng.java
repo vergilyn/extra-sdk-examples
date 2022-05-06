@@ -3,6 +3,7 @@ package com.vergilyn.examples.alibaba.dingtalk.robot;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.vergilyn.examples.alibaba.dingtalk.AbstractDingTalkClientTestng;
+import com.vergilyn.examples.alibaba.dingtalk.config.AbstractDingtalkProperties;
 import org.assertj.core.util.Lists;
 import org.testng.annotations.Test;
 
@@ -31,7 +32,7 @@ public class RobotMessageTestng extends AbstractDingTalkClientTestng {
 		LocalDateTime now = LocalDateTime.now();
 		String nowStr = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-		final String robotWebhook = dingtalkProperties().robotWebhook();
+		final AbstractDingtalkProperties.WebhookConfig robotWebhook = dingtalkProperties().robotWebhook();
 
 		OapiRobotSendRequest request = new OapiRobotSendRequest();
 		request.setMsgtype("text");
@@ -53,7 +54,7 @@ public class RobotMessageTestng extends AbstractDingTalkClientTestng {
 		at.setIsAtAll(false);
 		request.setAt(at);
 
-		final OapiRobotSendResponse response = executeExplicitUrl(robotWebhook, request);
+		final OapiRobotSendResponse response = executeExplicitUrl(robotWebhook.apiUrl(), request);
 		printJSONString(response);
 	}
 }

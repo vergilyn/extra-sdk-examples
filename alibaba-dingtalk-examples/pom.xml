@@ -13,7 +13,8 @@
     <artifactId>alibaba-dingtalk-examples</artifactId>
 
     <properties>
-        <alibaba-dingtalk-service-sdk.version>1.0.1</alibaba-dingtalk-service-sdk.version>
+        <version.alibaba-dingtalk-service-sdk>2.0.0</version.alibaba-dingtalk-service-sdk>
+        <version.alibaba-dingtalk>1.3.41</version.alibaba-dingtalk>
     </properties>
 
     <dependencies>
@@ -23,19 +24,26 @@
         </dependency>
 
         <!-- 2021-01-26 改成本地依赖-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>alibaba-dingtalk-service-sdk</artifactId>
-            <version>${alibaba-dingtalk-service-sdk.version}</version>
-        </dependency>-->
+            <version>${version.alibaba-dingtalk-service-sdk}</version>
+        </dependency>
 
+        <!-- 新版SDK https://open.dingtalk.com/document/orgapp-server/sdk-download -->
         <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dingtalk</artifactId>
+            <version>${version.alibaba-dingtalk}</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>taobao-sdk-java</artifactId>
             <scope>system</scope>
             <systemPath>${basedir}/libs/taobao-sdk-java-auto-20210709-source.jar</systemPath>
             <version>20210709</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>commons-io</groupId>

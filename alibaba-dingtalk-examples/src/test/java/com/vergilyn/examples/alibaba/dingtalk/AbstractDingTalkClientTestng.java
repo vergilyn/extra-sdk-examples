@@ -52,7 +52,7 @@ public abstract class AbstractDingTalkClientTestng {
 	protected final <T extends TaobaoResponse> T executeExplicitUrl(String serverUrl, TaobaoRequest<T> request) {
 		DefaultDingTalkClient client = new DefaultDingTalkClient(serverUrl);;
 		try {
-			return client.execute(request, getAccessKey(), getAccessSecret());
+			return client.execute(request);
 		} catch (ApiException e) {
 			e.printStackTrace();
 			return null;

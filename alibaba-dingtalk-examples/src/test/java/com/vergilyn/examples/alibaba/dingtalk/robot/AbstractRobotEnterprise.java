@@ -27,4 +27,6 @@ public abstract class AbstractRobotEnterprise extends AbstractDingTalkClientTest
 		System.out.println("Robot AccessToken >>>> " + accessToken);
 		return accessToken;
 	}
+
+
 }

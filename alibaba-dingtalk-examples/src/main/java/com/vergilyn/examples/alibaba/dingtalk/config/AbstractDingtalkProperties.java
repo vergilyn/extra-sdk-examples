@@ -1,12 +1,18 @@
 package com.vergilyn.examples.alibaba.dingtalk.config;
 
+import com.dingtalk.api.DingTalkSignatureUtil;
 import com.vergilyn.examples.alibaba.dingtalk.utils.DingCallbackCrypto;
+import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
+
+import java.net.URLEncoder;
 
 /**
  * @see <a href="https://ding-doc.dingtalk.com/doc#/serverapi2/tvu5f4">dingtalk配置获取</a>
  */
 public interface AbstractDingtalkProperties {
 	String DINGTALK_OAPI_DOMAIN = "https://oapi.dingtalk.com";
+	String TEST_IMAGE_URL = "https://pic.cnblogs.com/avatar/1025273/20171112211439.png";
 
 	String dingtalkOapiHost();
 
@@ -86,7 +92,32 @@ public interface AbstractDingtalkProperties {
 	//endregion
 
 	//region 机器人 https://developers.dingtalk.com/document/app/custom-robot-access
-	String robotWebhook();
+	WebhookConfig robotWebhook();
 	//endregion
 
+
+	interface WebhookConfig {
+		String FORMAT_URL = "https://oapi.dingtalk.com/robot/send?access_token=%s";
+
+		String accessToken();
+
+		String secret();
+
+		@SneakyThrows
+		default String apiUrl(){
+			String apiUrl = String.format(FORMAT_URL, accessToken());
+
+			String secret = secret();
+
+			if (StringUtils.isNotBlank(secret)){
+				long timestamp = System.currentTimeMillis();
+				String signContent = timestamp + "\n" + secret;
+				String sign = DingTalkSignatureUtil.computeSignature(secret, signContent);
+
+				apiUrl += "&timestamp=" + timestamp + "&sign=" + URLEncoder.encode(sign, "UTF-8");;
+			}
+
+			return apiUrl;
+		}
+	}
 }
