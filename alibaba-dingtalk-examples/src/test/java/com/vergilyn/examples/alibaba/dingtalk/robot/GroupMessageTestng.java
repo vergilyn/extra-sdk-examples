@@ -109,6 +109,7 @@ public class GroupMessageTestng extends AbstractRobotEnterprise {
 
 	/**
 	 * <a href="https://open.dingtalk.com/document/group/message-types-and-data-format">消息类型和数据格式</a> <br/>
+	 * <a href="https://open.dingtalk.com/document/orgapp-server/message-types-and-data-format">工作通知 - markdown语法</a>
 	 *
 	 * 目前只支持Markdown语法的子集，支持的元素如下：
 	 * <pre>
@@ -140,6 +141,9 @@ public class GroupMessageTestng extends AbstractRobotEnterprise {
 	 * 有序列表
 	 * 1. item1
 	 * 2. item2
+	 *
+	 * 换行
+	 * `  \n  ` (建议\n前后分别加2个空格)
 	 * </pre>
 	 *
 	 * <p>
