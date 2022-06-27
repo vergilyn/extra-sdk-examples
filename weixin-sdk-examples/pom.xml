@@ -18,7 +18,10 @@
     </modules>
 
     <properties>
-        <wexin-sdk.version>3.9.0</wexin-sdk.version>
+        <!--
+            2022-05-10，`4.3.0`
+        -->
+        <wexin-sdk.version>4.3.0</wexin-sdk.version>
     </properties>
 
     <dependencyManagement>
@@ -34,6 +37,12 @@
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>wx-java-pay-spring-boot-starter</artifactId>
+                <version>${wexin-sdk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
                 <version>${wexin-sdk.version}</version>
             </dependency>
         </dependencies>

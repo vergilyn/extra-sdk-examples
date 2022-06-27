@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @see <a href="https://developers.dingtalk.com/document/app/custom-robot-access/title-zob-eyu-qse">使用自定义消息机器人</a>
  */
-public class RobotMessageTestng extends AbstractDingTalkClientTestng {
+public class GroupMessageRobotTestng extends AbstractDingTalkClientTestng {
 
 	/**
 	 * 每个机器人每分钟最多发送20条。

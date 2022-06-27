@@ -1,10 +1,12 @@
 package com.vergilyn.examples.alibaba.dingtalk.robot;
 
+import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
+import com.google.common.collect.Lists;
+import com.taobao.api.TaobaoRequest;
 import com.vergilyn.examples.alibaba.dingtalk.config.AbstractDingtalkProperties;
 import lombok.SneakyThrows;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -18,7 +20,7 @@ import static com.vergilyn.examples.alibaba.dingtalk.config.AbstractDingtalkProp
  *
  * @see <a href="https://open.dingtalk.com/document/group/enterprise-created-chatbot">企业内部开发机器人</a>
  */
-public class GroupMessageTestng extends AbstractRobotEnterprise {
+public class GroupMessageWebhookTestng extends AbstractRobotEnterprise {
 
 	/**
 	 * 获取 <b>已创建群</b> 的`openConversationId`（开放的群ID）步骤：
@@ -81,11 +83,19 @@ public class GroupMessageTestng extends AbstractRobotEnterprise {
 
 		// 貌似只有 markdown & text  才支持 `@某某`
 		OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
-		at.setAtMobiles(Lists.newArrayList(dingtalkProperties().moblieOther()));
-		at.setAtUserIds(Lists.newArrayList(dingtalkProperties().dingtalkUserId()));
+		// at.setAtMobiles(Lists.newArrayList(dingtalkProperties().moblie()));
+		at.setAtUserIds(Lists.newArrayList(dingtalkProperties().dingtalkUserIdOther()));
 		at.setIsAtAll(false);
 		request.setAt(at);
 
+		// defaultDingTalkClient.execute(request)
+		// 千万不能 调用 `defaultDingTalkClient.execute(request, accessKey, accessSecret)`，会报错 `sign not match`。
+		// 实际是因为
+		/**
+		 * 2022-05-06，不能调用 {@link DefaultDingTalkClient#execute(TaobaoRequest, String, String) DefaultDingTalkClient#(request, accessKey, accessSecret)}
+		 * 因为，其中{@linkplain DefaultDingTalkClient#executeOApi(TaobaoRequest, String, String, String, String, String)} 的`accessKey`签名优先级公告。
+		 * 导致，timestamp 被替换，所以最终的 `timestamp` 和 webhook-sign 不一致，导致返回`sign not match`。
+		 */
 		final OapiRobotSendResponse response = executeExplicitUrl(webhookConfig.apiUrl(), request);
 		printJSONString(response);
 	}
@@ -153,8 +163,25 @@ public class GroupMessageTestng extends AbstractRobotEnterprise {
 		OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
 		// 群消息 没有显示换行，例如 `工作通知，内容 >>>>标题：${title}时间：${time}`
 		// markdown.setText("[markdown]工作通知，内容 >>>>\n" + "标题：${title}\n" + "时间：${time}");
-		markdown.setText("【markdown】机器人群消息，内容 >>>>  \n" + "  标题：${title}  \n" + "  时间：${time}  ");
-		markdown.setTitle("markdown消息");
+		// markdown.setText("【markdown】机器人群消息，内容 >>>>  \n" + "  标题：${title}  \n" + "  时间：${time}  ");
+		// markdown.setTitle("markdown消息");
+
+		// DDL规范异常通知【请及时处理】
+		// 数据库：zmn_oms
+		// 检测时间：2022-06-09 11:11:31
+		// 责任人：xxx
+		// 异常规范：异常描述超过一百字，附带链接
+
+		String LF = "  \n  ";
+
+		String text = "## DDL规范异常通知【请及时处理】" + LF
+				+ "数据库: zmn_oms" + LF
+				+ "检测时间：2022-06-09 11:11:31" + LF
+				+ "责任人：@" + dingtalkProperties().dingtalkUserIdOther() + LF
+				+ "异常规范：异常描述超过一百字，附带链接";
+
+		markdown.setText(text);
+		markdown.setTitle("DDL规范检查群消息");
 
 		request.setMarkdown(markdown);
 		request.setMsgtype("markdown");
@@ -167,7 +194,17 @@ public class GroupMessageTestng extends AbstractRobotEnterprise {
 		// 标题：${title}
 		// 时间：${time}
 		// @某人
-		text.setContent("[text]工作通知，内容 >>>>\n" + "标题：${title}\n" + "时间：${time}");
+		// text.setContent("[text]工作通知，内容 >>>> \n换行01\n换行02\n换行03");
+
+		String LF = "\n";
+
+		String textContent = "DDL规范异常通知【请及时处理】" + LF
+				+ "数据库: zmn_oms" + LF
+				+ "检测时间：2022-06-09 11:11:31" + LF
+				+ "责任人：@" + dingtalkProperties().dingtalkUserId() + LF
+				+ "异常规范：异常描述超过一百字，附带链接";
+
+		text.setContent(textContent);
 
 		request.setText(text);
 		request.setMsgtype("text");
