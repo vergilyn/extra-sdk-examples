@@ -1,9 +1,13 @@
 package com.vergilyn.examples.weixin.mp.message;
 
+import cn.binarywang.wx.miniapp.api.WxMaMsgService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaMsgServiceImpl;
 import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage;
 import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage.MsgData;
 import com.vergilyn.examples.weixin.mp.AbstractWeixinMpTestng;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,7 @@ public class SubscribeMessageTestng extends AbstractWeixinMpTestng {
 	 * <p> 2. <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html">
 	 *          发送订阅消息</a>
 	 */
+	@SneakyThrows
 	@Test
 	public void subscribeMessage() {
 		WxMaSubscribeMessage message = new WxMaSubscribeMessage();
@@ -33,7 +38,10 @@ public class SubscribeMessageTestng extends AbstractWeixinMpTestng {
 		}};
 
 		message.setData(data);
-
 		System.out.println(message.toJson());
+
+		WxMaMsgService wxMaMsgService = Mockito.mock(WxMaMsgServiceImpl.class);
+
+		wxMaMsgService.sendSubscribeMsg(message);
 	}
 }

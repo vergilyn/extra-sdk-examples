@@ -17,6 +17,7 @@
         <module>aliyun-sms-examples</module>
         <module>aliyun-vod-examples</module>
         <module>baidu-mini-examples</module>
+        <module>aliyun-business-rocketmq-examples</module>
     </modules>
 
     <properties>

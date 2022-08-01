@@ -74,16 +74,18 @@ public class GroupMessageWebhookTestng extends AbstractRobotEnterprise {
 		OapiRobotSendRequest request = new OapiRobotSendRequest();
 
 		if ("markdown".equalsIgnoreCase(msgtype)){
+			// markdown  不管是 `@mobile/userId` 最终在钉钉都没 名字高亮。
 			buildMarkdown(request);
 		}else if ("image".equalsIgnoreCase(msgtype)){
 			buildImage(request);
 		}else if ("text".equalsIgnoreCase(msgtype)){
+			// text `@mobile/userId` 支持高亮。
 			buildText(request);
 		}
 
 		// 貌似只有 markdown & text  才支持 `@某某`
 		OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
-		// at.setAtMobiles(Lists.newArrayList(dingtalkProperties().moblie()));
+		at.setAtMobiles(Lists.newArrayList(dingtalkProperties().moblieOther()));
 		at.setAtUserIds(Lists.newArrayList(dingtalkProperties().dingtalkUserIdOther()));
 		at.setIsAtAll(false);
 		request.setAt(at);
@@ -177,8 +179,9 @@ public class GroupMessageWebhookTestng extends AbstractRobotEnterprise {
 		String text = "## DDL规范异常通知【请及时处理】" + LF
 				+ "数据库: zmn_oms" + LF
 				+ "检测时间：2022-06-09 11:11:31" + LF
-				+ "责任人：@" + dingtalkProperties().dingtalkUserIdOther() + LF
-				+ "异常规范：异常描述超过一百字，附带链接";
+				+ "责任人：@" + dingtalkProperties().moblieOther() + LF
+				+ "异常规范：异常描述超过一百字，附带链接 <https://www.baidu.com>"
+				+ "![](https://pic.cnblogs.com/avatar/1025273/20171112211439.png)";
 
 		markdown.setText(text);
 		markdown.setTitle("DDL规范检查群消息");
@@ -201,7 +204,7 @@ public class GroupMessageWebhookTestng extends AbstractRobotEnterprise {
 		String textContent = "DDL规范异常通知【请及时处理】" + LF
 				+ "数据库: zmn_oms" + LF
 				+ "检测时间：2022-06-09 11:11:31" + LF
-				+ "责任人：@" + dingtalkProperties().dingtalkUserId() + LF
+				+ "责任人：@" + dingtalkProperties().moblieOther() + LF
 				+ "异常规范：异常描述超过一百字，附带链接";
 
 		text.setContent(textContent);

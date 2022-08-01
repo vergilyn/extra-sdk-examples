@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.vergilyn.examples</groupId>
+        <artifactId>extra-sdk-examples</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <groupId>com.vergilyn.examples.aliyun.rocketmq</groupId>
+    <artifactId>aliyun-business-rocketmq-examples</artifactId>
+
+    <properties>
+        <version.ons-client>1.8.7.1.Final</version.ons-client>
+    </properties>
+
+    <dependencies>
+        <!-- https://help.aliyun.com/document_detail/114448.html-->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>${version.ons-client}</version>
+        </dependency>
+    </dependencies>
+</project>

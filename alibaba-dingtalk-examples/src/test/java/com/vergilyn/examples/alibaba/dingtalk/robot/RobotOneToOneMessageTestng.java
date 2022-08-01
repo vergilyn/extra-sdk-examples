@@ -49,7 +49,7 @@ public class RobotOneToOneMessageTestng extends AbstractRobotEnterprise{
 	 * <p> 1. 个人感觉：这SDK不太友好，不如直接 http请求 来的简单。
 	 * <p> 2. 验证了下：没有每分钟发多少条限制，也没有不能发送重复内容的限制。
 	 */
-	@RepeatedTest(2)
+	@RepeatedTest(1)
 	@SneakyThrows
 	public void api(){
 		com.aliyun.teaopenapi.models.Config config = new Config();
@@ -64,10 +64,10 @@ public class RobotOneToOneMessageTestng extends AbstractRobotEnterprise{
 		RuntimeOptions runtimeOptions = new RuntimeOptions();
 
 		String markdownLF = "  \n  ";
-		String content = "##【markdown】公司内部机器人，单聊消息 >>>> " + markdownLF
+		String content = "## 【markdown】公司内部机器人，单聊消息 >>>> " + markdownLF
 				+ "  序号：" + index.incrementAndGet() + markdownLF
 				+ "  时间：" + LocalDateTime.now() + markdownLF
-				+ "  链接：[百度 baidu.con](https://www.baidu.com)";
+				+ "  链接：[百度 baidu.con](https://www.baidu.com)  <https://www.baidu.com>";
 
 		BatchSendOTORequest request = new BatchSendOTORequest()
 				// `RobotCode`机器人的编码，即为开发者后台创建的企业内部机器人应用的Appkey值
