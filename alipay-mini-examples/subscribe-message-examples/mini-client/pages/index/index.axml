@@ -1,0 +1,19 @@
+
+<subscribe-msg />
+
+<view class="demo-page">
+  <view class="title">消息订阅插件示例</view>
+  <!-- 一次性订阅消息模版
+    cbbd808de97a495a9967f1256d05ab6e	业务完成通知
+    业务名称: {{ keyword1 }}
+    业务类型: {{ keyword2 }}
+    完成时间: {{ keyword3 }}
+
+    9f04e7c1721b4c1799329717dea6b41f	任务完成提醒
+    任务奖励: {{ keyword1 }}
+    任务类型: {{ keyword2 }}
+   -->
+
+  <button class="action" type="ghost" onTap="onTapBtn">唤起消息订阅</button>
+  <!-- 引入组件 -->
+</view>

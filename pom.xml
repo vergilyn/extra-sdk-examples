@@ -18,6 +18,7 @@
         <module>aliyun-vod-examples</module>
         <module>baidu-mini-examples</module>
         <module>aliyun-business-rocketmq-examples</module>
+        <module>alipay-mini-examples</module>
     </modules>
 
     <properties>
@@ -34,7 +35,7 @@
         <apache-common-lang3.version>3.9</apache-common-lang3.version>
 
         <aliyun-java-sdk-core.version>4.5.18</aliyun-java-sdk-core.version>
-        <version.alipay-sdk-java>4.23.19.ALL</version.alipay-sdk-java>
+        <version.alipay-sdk-java>4.33.10.ALL</version.alipay-sdk-java>
 
         <apache-common-text.version>1.9</apache-common-text.version>
         <apache-common-io.version>2.6</apache-common-io.version>

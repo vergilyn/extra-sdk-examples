@@ -1,0 +1,26 @@
+form {
+  padding-top: 100rpx;
+}
+
+.action {
+  width: 75%;
+  margin: 0 auto;
+}
+.action:first-child {
+  margin-bottom: 10rpx;
+}
+
+.balance {
+  margin-top: 40rpx;
+  text-align: center;
+  color: #484848;
+}
+
+.content {
+  width: 90%;
+  padding-top: 50rpx;
+  margin: 80rpx auto 0;
+  border-top: 2rpx solid #eaeaea;
+  color: #979797;
+  line-height: 1.5;
+}

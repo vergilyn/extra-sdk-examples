@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "plugins": {
+    "subscribeMsg": {
+      "version": "*",
+      "provider": "2021001155639035"
+    }
+  },
+  "window": {
+    "defaultTitle": "小程序消息推送"
+  }
+}
