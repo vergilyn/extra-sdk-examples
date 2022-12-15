@@ -43,7 +43,7 @@
 
 
         <apache-common-text.version>1.9</apache-common-text.version>
-        <apache-common-io.version>2.6</apache-common-io.version>
+        <apache-common-io.version>2.7</apache-common-io.version>
         <apache-common-beanutils.version>1.9.4</apache-common-beanutils.version>
         <apache-common-fileupload.version>1.4</apache-common-fileupload.version>
         <apache-common-httpclient.version>4.5.10</apache-common-httpclient.version>
