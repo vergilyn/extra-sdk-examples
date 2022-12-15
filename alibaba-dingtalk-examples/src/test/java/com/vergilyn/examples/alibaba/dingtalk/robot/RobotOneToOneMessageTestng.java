@@ -13,6 +13,11 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -44,6 +49,12 @@ public class RobotOneToOneMessageTestng extends AbstractRobotEnterprise{
 	 * <p> 2. 消息类型，参考：<a href="https://open.dingtalk.com/document/group/message-types-and-data-format">
 	 *     消息类型和数据格式</a>
 	 *
+	 * <p> 3. <a href="https://open.dingtalk.com/document/orgapp-server/invocation-frequency-limit">调用频率限制（有效期至2022年10月31日）</a>
+	 * <blockquote>
+	 *     i) 每个机器人每分钟最多发送20条。
+	 *     ii) 如果超过20条，会限流10分钟。
+	 * </blockquote>
+	 * <br/> (这个貌似指的是 群聊消息。单聊没这个限制)
 	 *
 	 * <p><h3>备注</h3>
 	 * <p> 1. 个人感觉：这SDK不太友好，不如直接 http请求 来的简单。
@@ -76,7 +87,7 @@ public class RobotOneToOneMessageTestng extends AbstractRobotEnterprise{
 				.setUserIds(java.util.Arrays.asList(
 						dingtalkProperties().dingtalkUserId()
 				))
-				.setMsgKey("sampleMarkdown")
+				.setMsgKey("sampleActionCard")
 
 				// title 显示在 左侧聊天列表。
 				.setMsgParam("{\"text\": \"" + content + "\",\"title\": \"sampleMarkdown title\"}");
@@ -92,5 +103,60 @@ public class RobotOneToOneMessageTestng extends AbstractRobotEnterprise{
 					, responseBody.getProcessQueryKey()
 					, JSON.toJSONString(responseBody.getInvalidStaffIdList())
 					, JSON.toJSONString(responseBody.getFlowControlledStaffIdList()));
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	@SneakyThrows
+	public void invocationFrequencyLimit(){
+		ExecutorService executor = Executors.newFixedThreadPool(10);
+
+		String accessToken = getRobotEnterpriseAccessToken();
+
+		AtomicInteger index = new AtomicInteger(0);
+		for (int i = 0; i < 40; i++) {
+			Future<?> future = executor.submit(() -> {
+				Config config = new Config();
+				// 不支持 `http` 协议
+				config.protocol = "https";
+
+				Client client = null;
+				try {
+					client = new Client(config);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+
+				BatchSendOTOHeaders requestHeader = new BatchSendOTOHeaders();
+				requestHeader.xAcsDingtalkAccessToken = accessToken;
+
+				RuntimeOptions runtimeOptions = new RuntimeOptions();
+
+				String content = String.format("%02d", index.getAndIncrement()) + "," + LocalDateTime.now();
+
+				BatchSendOTORequest request = new BatchSendOTORequest()
+						// `RobotCode`机器人的编码，即为开发者后台创建的企业内部机器人应用的Appkey值
+						.setRobotCode(dingtalkProperties().robotEnterpriseAppKey())
+						// 用户的userid。每次最多传20个userid值
+						.setUserIds(Arrays.asList(dingtalkProperties().dingtalkUserId())).setMsgKey("sampleText")
+
+						// title 显示在 左侧聊天列表。
+						.setMsgParam("{\"content\": \"" + content + "\"}");
+
+				try {
+					BatchSendOTOResponse response = client.batchSendOTOWithOptions(request, requestHeader,
+					                                                               runtimeOptions);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+
+			});
+		}
+
+		executor.shutdown();
+
+		executor.awaitTermination(2, TimeUnit.SECONDS);
 	}
 }
